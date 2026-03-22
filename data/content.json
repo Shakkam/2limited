@@ -29,6 +29,12 @@
     "email": "contact@2limited.com"
   },
   "albums": [],
-  "videos": [],
+  "videos": [
+    {
+      "id": "nBUbUUPoNfQ",
+      "title": "2-LIMITED — Street Spirit (Radiohead Acoustic Cover)",
+      "year": "2025"
+    }
+  ],
   "tour": []
 }
