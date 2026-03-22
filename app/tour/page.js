@@ -19,7 +19,7 @@ export default function Tour() {
       <div className="px-10 py-12 max-w-2xl">
         {tour.length === 0 ? (
           <p className="text-zinc-700 text-xs tracking-widest uppercase">
-            No dates announced yet
+            Shows to come!
           </p>
         ) : (
           <div className="flex flex-col divide-y divide-zinc-900">
