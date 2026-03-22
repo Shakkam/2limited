@@ -1,0 +1,34 @@
+{
+  "band": {
+    "name": "2-LIMITED",
+    "tagline": "Acoustic Rock Duo",
+    "bio": [
+      {
+        "heading": "Who we are",
+        "text": "2-Limited is an acoustic rock duo formed in France, blending raw guitar energy with heartfelt vocals. Two musicians, one vision: powerful, stripped-down rock."
+      },
+      {
+        "heading": "Our sound",
+        "text": "We strip rock back to its essence — two guitars, two voices, and nothing to hide behind. Our music is direct, emotional, and built to last."
+      }
+    ],
+    "members": [
+      { "name": "Member 1", "role": "Guitar & Vocals", "photo": null },
+      { "name": "Member 2", "role": "Guitar & Vocals", "photo": null }
+    ],
+    "photos": [],
+    "heroPhoto": null
+  },
+  "social": {
+    "facebook": "https://facebook.com/2limited",
+    "instagram": "https://instagram.com/2limited",
+    "youtube": "https://youtube.com/2limited",
+    "spotify": null
+  },
+  "contact": {
+    "email": "contact@2limited.com"
+  },
+  "albums": [],
+  "videos": [],
+  "tour": []
+}

@@ -1,0 +1,27 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+html,
+body {
+  height: 100%;
+  background: #000;
+  color: #fff;
+  font-family: system-ui, -apple-system, sans-serif;
+}
+
+::selection {
+  background: #fff;
+  color: #000;
+}
+
+@keyframes kenBurns {
+  0%   { transform: scale(1)    translateX(0)    translateY(0); }
+  33%  { transform: scale(1.06) translateX(-1%)  translateY(-1%); }
+  66%  { transform: scale(1.04) translateX(1%)   translateY(-0.5%); }
+  100% { transform: scale(1.08) translateX(-0.5%) translateY(0.5%); }
+}
+
+.ken-burns {
+  animation: kenBurns 12s ease-in-out infinite alternate;
+}
