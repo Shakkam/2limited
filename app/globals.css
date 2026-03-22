@@ -8,8 +8,9 @@ body {
   background: #000;
   color: #fff;
   font-family: system-ui, -apple-system, sans-serif;
-  scrollbar-gutter: stable;
+  overflow-x: hidden;
 }
+
 
 ::selection {
   background: #fff;
