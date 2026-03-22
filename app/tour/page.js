@@ -16,9 +16,9 @@ export default function Tour() {
       </div>
 
       {/* Dates */}
-      <div className="px-10 py-12 max-w-2xl">
+      <div className="flex-1 flex items-center justify-center py-32">
         {tour.length === 0 ? (
-          <p className="text-zinc-200 text-5xl md:text-7xl font-black tracking-widest uppercase mt-16">
+          <p className="text-zinc-200 text-5xl md:text-7xl font-black tracking-widest uppercase text-center">
             Shows to come!
           </p>
         ) : (
