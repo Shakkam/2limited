@@ -1,5 +1,6 @@
 import data from "@/data/content.json";
 import FadeUp from "@/components/FadeUp";
+import MemberCard from "@/components/MemberCard";
 
 export const metadata = { title: "Band | 2-LIMITED" };
 
@@ -16,37 +17,28 @@ export default function Band() {
         </FadeUp>
       </div>
 
-      {/* Bio */}
-      <div className="px-10 py-12 max-w-2xl">
-        {band.bio.map((section, i) => (
-          <FadeUp key={i} delay={0.1 + i * 0.1} className="mb-10">
-            {section.heading && (
-              <h2 className="text-xs font-bold tracking-[0.3em] uppercase text-zinc-500 mb-3">
-                {section.heading}
-              </h2>
-            )}
-            <p className="text-zinc-300 text-sm leading-relaxed">{section.text}</p>
+      {/* Members — 2 photos côte à côte */}
+      <div className="grid grid-cols-1 md:grid-cols-2">
+        {band.members.map((member, i) => (
+          <FadeUp key={i} delay={i * 0.15}>
+            <MemberCard member={member} />
           </FadeUp>
         ))}
       </div>
 
-      {/* Members */}
-      {band.members.length > 0 && (
-        <div className="px-10 pb-16">
-          <FadeUp delay={0.3}>
-            <p className="text-[10px] tracking-[0.4em] uppercase text-zinc-600 mb-8">Members</p>
-            <div className="flex gap-8">
-              {band.members.map((member, i) => (
-                <div key={i}>
-                  <div className="w-40 h-40 bg-zinc-900 mb-4 flex items-center justify-center">
-                    <p className="text-zinc-700 text-xs tracking-widest">Photo</p>
-                  </div>
-                  <p className="text-white text-sm font-bold tracking-widest">{member.name}</p>
-                  <p className="text-zinc-600 text-xs tracking-widest mt-1">{member.role}</p>
-                </div>
-              ))}
-            </div>
-          </FadeUp>
+      {/* Bio */}
+      {band.bio.length > 0 && (
+        <div className="px-10 py-12 max-w-2xl border-t border-zinc-900">
+          {band.bio.map((section, i) => (
+            <FadeUp key={i} delay={0.1 + i * 0.1} className="mb-10">
+              {section.heading && (
+                <h2 className="text-xs font-bold tracking-[0.3em] uppercase text-zinc-500 mb-3">
+                  {section.heading}
+                </h2>
+              )}
+              <p className="text-zinc-300 text-sm leading-relaxed">{section.text}</p>
+            </FadeUp>
+          ))}
         </div>
       )}
     </div>

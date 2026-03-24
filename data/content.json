@@ -13,8 +13,8 @@
       }
     ],
     "members": [
-      { "name": "Member 1", "role": "Guitar & Vocals", "photo": null },
-      { "name": "Member 2", "role": "Guitar & Vocals", "photo": null }
+      { "name": "Cam", "role": "Guitar & Vocals", "photo": "/images/cam.png", "bio": "" },
+      { "name": "Steph", "role": "Guitar & Vocals", "photo": "/images/steph.png", "bio": "" }
     ],
     "photos": [],
     "heroPhoto": null
