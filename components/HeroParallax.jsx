@@ -25,7 +25,7 @@ uniform vec2 u_vel[${HIST}];
 varying vec2 v_uv;
 
 vec2 coverUV(vec2 uv, vec2 res, vec2 imgSize) {
-  float scale = max(res.x / imgSize.x, res.y / imgSize.y);
+  float scale = min(res.x / imgSize.x, res.y / imgSize.y);
   vec2 offset = (res - imgSize * scale) / (2.0 * res);
   return (uv - offset) * res / (imgSize * scale);
 }
@@ -187,17 +187,16 @@ export default function HeroParallax() {
       }
     };
 
-    const onMouseMove = (e) => {
-      const dx = e.clientX - mouse.current.x;
-      const dy = e.clientY - mouse.current.y;
+    const handleMove = (clientX, clientY) => {
+      const dx = clientX - mouse.current.x;
+      const dy = clientY - mouse.current.y;
       const speed = Math.sqrt(dx*dx + dy*dy);
       if (speed < 0.5) return;
-      mouse.current = { x: e.clientX, y: e.clientY };
+      mouse.current = { x: clientX, y: clientY };
 
-      // Add to displacement history
       const i = histIdx.current;
-      histData.current[i*4]   = e.clientX / window.innerWidth;
-      histData.current[i*4+1] = e.clientY / window.innerHeight;
+      histData.current[i*4]   = clientX / window.innerWidth;
+      histData.current[i*4+1] = clientY / window.innerHeight;
       histData.current[i*4+2] = 1.0;
       histData.current[i*4+3] = 0.0;
       velData.current[i*2]   = (dx / window.innerWidth)  * 0.10;
@@ -205,12 +204,28 @@ export default function HeroParallax() {
       histIdx.current = (i + 1) % HIST;
 
       paintStroke(
-        e.clientX / window.innerWidth,
-        e.clientY / window.innerHeight,
+        clientX / window.innerWidth,
+        clientY / window.innerHeight,
         dx, dy, speed
       );
     };
+
+    const onMouseMove = (e) => handleMove(e.clientX, e.clientY);
+
+    const onTouchMove = (e) => {
+      e.preventDefault();
+      const t = e.touches[0];
+      handleMove(t.clientX, t.clientY);
+    };
+
+    const onTouchStart = (e) => {
+      const t = e.touches[0];
+      mouse.current = { x: t.clientX, y: t.clientY };
+    };
+
     window.addEventListener("mousemove", onMouseMove);
+    window.addEventListener("touchmove", onTouchMove, { passive: false });
+    window.addEventListener("touchstart", onTouchStart, { passive: true });
 
     let texBytes = null;
     const draw = () => {
@@ -245,6 +260,8 @@ export default function HeroParallax() {
       cancelAnimationFrame(animRef.current);
       window.removeEventListener("resize", resize);
       window.removeEventListener("mousemove", onMouseMove);
+      window.removeEventListener("touchmove", onTouchMove);
+      window.removeEventListener("touchstart", onTouchStart);
     };
   }, []);
 

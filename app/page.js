@@ -6,7 +6,7 @@ export const metadata = { title: "2-LIMITED — Electro acoustic vibe" };
 
 export default function Home() {
   return (
-    <div className="relative h-screen w-full overflow-hidden bg-black">
+    <div className="relative h-[100dvh] w-full overflow-hidden bg-black">
       {/* Background with mouse parallax */}
       <HeroParallax />
 
