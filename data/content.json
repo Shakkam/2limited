@@ -20,8 +20,8 @@
     "heroPhoto": null
   },
   "social": {
-    "facebook": "https://facebook.com/2limited",
-    "instagram": "https://instagram.com/2limited",
+    "facebook": "https://www.facebook.com/profile.php?id=61560969210557",
+    "instagram": "https://www.instagram.com/2limited_acoustic_band/",
     "youtube": "https://youtube.com/2limited",
     "spotify": null
   },
@@ -29,6 +29,21 @@
     "email": "contact@2limited.com"
   },
   "albums": [],
+  "photos": [
+    { "src": "/images/cmso1.jpg", "alt": "2-LIMITED" },
+    { "src": "/images/cmso2.jpg", "alt": "2-LIMITED" },
+    { "src": "/images/cmsocam1.jpg", "alt": "Cam" },
+    { "src": "/images/cmsocam2.jpg", "alt": "Cam" },
+    { "src": "/images/cmsosteph1.jpg", "alt": "Steph" },
+    { "src": "/images/cmsosteph2.jpg", "alt": "Steph" },
+    { "src": "/images/vlcsnap-2024-06-06-14h28m01s384.jpg", "alt": "2-LIMITED" },
+    { "src": "/images/vlcsnap-2024-06-06-14h28m34s237.jpg", "alt": "2-LIMITED" },
+    { "src": "/images/vlcsnap-2024-06-06-16h12m20s922.png", "alt": "2-LIMITED" },
+    { "src": "/images/vlcsnap-2024-06-12-13h49m33s972.jpg", "alt": "2-LIMITED" },
+    { "src": "/images/vlcsnap-2024-06-19-14h03m19s158.jpg", "alt": "2-LIMITED" },
+    { "src": "/images/vlcsnap-2024-06-19-14h04m38s785.jpg", "alt": "2-LIMITED" },
+    { "src": "/images/vlcsnap-2024-06-19-14h06m17s300.jpg", "alt": "2-LIMITED" }
+  ],
   "videos": [
     {
       "id": "nBUbUUPoNfQ",

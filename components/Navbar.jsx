@@ -9,8 +9,7 @@ const navLinks = [
   { href: "/", label: "HOME" },
   { href: "/band", label: "BAND" },
   { href: "/music", label: "MUSIC" },
-  { href: "/videos", label: "VIDEOS" },
-  { href: "/tour", label: "TOUR" },
+  { href: "/media", label: "MEDIA" },
   { href: "/contact", label: "CONTACT" },
 ];
 
