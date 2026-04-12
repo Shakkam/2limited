@@ -6,7 +6,7 @@ import Footer from "@/components/Footer";
 
 export const metadata = {
   title: "2-LIMITED",
-  icons: { icon: "/images/logorond.jpeg" },
+  icons: { icon: "/images/favicon.png" },
 };
 
 export default function RootLayout({ children }) {
