@@ -4,17 +4,21 @@
     "tagline": "Acoustic Rock Duo",
     "bio": [
       {
-        "heading": "Who we are",
-        "text": "2-Limited is an acoustic rock duo formed in France, blending raw guitar energy with heartfelt vocals. Two musicians, one vision: powerful, stripped-down rock."
+        "heading": "Qui on est",
+        "text": "2-LIMITED, c'est un duo de potes musicalement connectés. Deux hommes orchestres — guitare, basse, cajon, voix — qui font le son d'un vrai groupe de rock, mais en électro-acoustique, et à deux. Attendez-vous à du son, de l'hétérogénéité, des rires et des larmes."
       },
       {
-        "heading": "Our sound",
-        "text": "We strip rock back to its essence — two guitars, two voices, and nothing to hide behind. Our music is direct, emotional, and built to last."
+        "heading": "Notre son",
+        "text": "On fait essentiellement des reprises — mais à notre façon. On prend ce qu'on aime dans le rock, on le dépouille de tout ce qui n'est pas essentiel, et on le remet sur pied avec nos deux corps, nos deux guitares, nos deux voix. Direct, physique, sans filet."
+      },
+      {
+        "heading": "Influences",
+        "text": "Queen, Metallica, Iron Maiden, Radiohead, Supertramp, Angra, Nightwish... et tellement d'autres. Un spectre large, une sensibilité commune."
       }
     ],
     "members": [
       { "name": "Cam", "role": "Guitar & Vocals", "photo": "/images/cam.png", "bio": "" },
-      { "name": "Steph", "role": "Guitar & Vocals", "photo": "/images/steph.png", "bio": "" }
+      { "name": "Steph", "role": "Bass, Cajon & Vocals", "photo": "/images/steph.png", "bio": "Piano à 6 ans, batterie à 10, guitare à 14 — Steph a grandi bercé par Queen, Metallica et Iron Maiden. Dans 2-LIMITED, il jongle entre la basse, le cajon-charleston et le chant, le tout avec les pieds autant qu'avec les mains. Compositeur autoproduit depuis des années, il apporte au duo son expérience, son univers musical... et ses blagues moisies." }
     ],
     "photos": [],
     "heroPhoto": null
