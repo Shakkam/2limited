@@ -26,7 +26,7 @@ export default function Navbar() {
         <div className="flex items-center justify-between px-8 md:px-12 h-24">
           {/* Logo */}
           <Link href="/">
-            <Image src="/images/logorond.jpeg" alt="2 LIMITED" width={80} height={80} className="" />
+            <Image src="/images/logorond.svg" alt="2 LIMITED" width={80} height={80} className="" />
           </Link>
 
           {/* Desktop nav */}
