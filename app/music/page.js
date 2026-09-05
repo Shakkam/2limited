@@ -1,9 +1,12 @@
 import data from "@/data/content.json";
+import FadeUp from "@/components/FadeUp";
+import AudioPlayer from "@/components/AudioPlayer";
 
 export const metadata = { title: "Music | 2-LIMITED" };
 
 export default function Music() {
   const { albums } = data;
+  const tracks = data.tracks || [];
 
   return (
     <div className="min-h-screen">
@@ -14,6 +17,20 @@ export default function Music() {
           <h1 className="text-3xl font-black tracking-widest text-white">MUSIC</h1>
         </div>
       </div>
+
+      {/* Tracks */}
+      {tracks.length > 0 && (
+        <div className="px-10 pt-12">
+          <p className="text-zinc-600 text-[10px] tracking-[0.4em] uppercase mb-5">Covers & Recordings</p>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-5 max-w-3xl">
+            {tracks.map((track, i) => (
+              <FadeUp key={i} delay={i * 0.1}>
+                <AudioPlayer src={track.src} title={track.title} subtitle={track.subtitle} />
+              </FadeUp>
+            ))}
+          </div>
+        </div>
+      )}
 
       {/* Albums */}
       <div className="px-10 py-12">

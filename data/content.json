@@ -45,6 +45,13 @@
     "email": "contact@2limited.com"
   },
   "albums": [],
+  "tracks": [
+    {
+      "title": "Goodbye Stranger",
+      "subtitle": "Supertramp Cover",
+      "src": "/music/goodbye-stranger.mp3"
+    }
+  ],
   "photos": [
     { "src": "/images/cmso1.jpg", "alt": "2-LIMITED" },
     { "src": "/images/cmso2.jpg", "alt": "2-LIMITED" },
