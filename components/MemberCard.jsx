@@ -49,9 +49,15 @@ export default function MemberCard({ member }) {
 
       <div className="px-8 py-8 bg-zinc-950 border-t border-zinc-900">
         <p className="text-white text-xl font-black tracking-widest mb-1">{member.name}</p>
-        <p className="text-zinc-500 text-[10px] tracking-[0.3em] uppercase mb-4">{member.role}</p>
+        <p className="text-zinc-500 text-[10px] tracking-[0.3em] uppercase mb-5">{member.role}</p>
         {member.bio && (
-          <p className="text-zinc-400 text-sm leading-relaxed">{member.bio}</p>
+          <div className="space-y-4">
+            {(Array.isArray(member.bio) ? member.bio : [member.bio]).map((paragraph, i) => (
+              <p key={i} className="text-zinc-400 text-sm leading-loose">
+                {paragraph}
+              </p>
+            ))}
+          </div>
         )}
       </div>
     </div>

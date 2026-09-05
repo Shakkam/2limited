@@ -5,11 +5,11 @@
     "bio": [
       {
         "heading": "Who we are",
-        "text": "2-Limited is an acoustic rock duo formed in France, blending raw guitar energy with heartfelt vocals. Two musicians, one vision: powerful, stripped-down rock."
+        "text": "2-LIMITED is Cam and Steph — two friends, two one-man bands, one real rock band reimagined in electro-acoustic format. Multi-instrumentalists at heart, they trade guitar, bass, percussion and vocals to fill a room with just the two of them."
       },
       {
         "heading": "Our sound",
-        "text": "We strip rock back to its essence — two guitars, two voices, and nothing to hide behind. Our music is direct, emotional, and built to last."
+        "text": "The energy of rock meets the authenticity of acoustic — a Rock, Folk and Pop blend, subtly dosed by two passionate friends. Expect heterogeneity, laughter, and a few tears along the way."
       }
     ],
     "members": [
@@ -17,9 +17,20 @@
         "name": "Cam",
         "role": "Bass, Percussion & Vocals",
         "photo": "/images/cam.png",
-        "bio": "Piano at 6, drums at 10, guitar at 14 — the Black Album, Iron Maiden's Seventh Son of a Seventh Son and Queen I & II sealed the deal. Cam formed his first band, Offensive, in high school at 18, and hasn't stopped since: bass, vocals, and self-produced records along the way. In 2-LIMITED he holds down the low end, drives the beat on cajon, hi-hat and snare played by foot, and sings — bringing years of experience, his own musical universe, a few original compositions, and admittedly terrible jokes. Influences: Queen, Metallica, Iron Maiden, Angra, Supertramp, Nightwish, and many more."
+        "bio": [
+          "Piano at 6, drums at 10, guitar at 14 — the Black Album, Iron Maiden's Seventh Son of a Seventh Son and Queen I & II sealed the deal. Cam formed his first band, Offensive, in high school at 18, and hasn't stopped since: bass, vocals, and self-produced records along the way.",
+          "In 2-LIMITED he holds down the low end, drives the beat on cajon, hi-hat and snare played by foot, and sings — bringing years of experience, his own musical universe, a few original compositions, and admittedly terrible jokes. Influences: Queen, Metallica, Iron Maiden, Angra, Supertramp, Nightwish, and many more."
+        ]
       },
-      { "name": "Steph", "role": "Guitar & Vocals", "photo": "/images/steph.png", "bio": "" }
+      {
+        "name": "Steph",
+        "role": "Guitar, Percussion & Vocals",
+        "photo": "/images/steph.png",
+        "bio": [
+          "Drawn to the magic of music since childhood — especially anything guitar-driven — and fascinated by players like Slash, John Frusciante and Jimi Hendrix, Steph picked up his first guitar and started writing his own music, self-taught, at 14.",
+          "In 2-LIMITED he brings the rock-acoustic atmosphere: guitar, percussion, a second voice, and arrangements that dig out the best in every song — complementary to his friend Camille's own talent. Influences: Muse, Radiohead, Slash, Nirvana, Metallica, Red Hot Chili Peppers, Måneskin, Ben Harper. Off stage, his second passion is surfing — a source of values and inspiration that feeds straight back into the music."
+        ]
+      }
     ],
     "photos": [],
     "heroPhoto": null
