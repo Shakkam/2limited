@@ -26,6 +26,7 @@ function ShowRow({ show, lang, t, past }) {
     >
       <p className="text-white text-xs font-bold tracking-[0.2em] uppercase md:w-56 md:shrink-0">
         {formatDate(show.date, lang)}
+        {show.time && <span className="text-zinc-500 normal-case tracking-normal"> — {show.time}</span>}
       </p>
       <div className="flex-1">
         <p className="text-white text-sm tracking-widest">{t(show.city)}</p>

@@ -1,66 +1,54 @@
 "use client";
 
-import { useRef } from "react";
+import { motion, useReducedMotion } from "framer-motion";
 import { useLanguage } from "@/components/LanguageProvider";
+import MemberPhoto from "@/components/MemberPhoto";
 
-export default function MemberCard({ member }) {
-  const videoRef = useRef(null);
+const EASE = [0.25, 0.1, 0.25, 1];
+
+export default function MemberCard({ member, index = 0 }) {
   const { t } = useLanguage();
-
-  const videoSrc = `/videos/${member.name.toLowerCase()}.webm`;
-
-  const handleMouseEnter = () => {
-    if (videoRef.current) {
-      videoRef.current.currentTime = 0;
-      videoRef.current.play().catch(() => {});
-    }
-  };
-
-  const handleMouseLeave = () => {
-    if (videoRef.current) {
-      videoRef.current.pause();
-      videoRef.current.currentTime = 0;
-    }
-  };
+  const shouldReduceMotion = useReducedMotion();
+  const mirrored = index % 2 === 1;
+  const initial = member.name ? member.name.charAt(0).toUpperCase() : "";
 
   return (
-    <div
-      className="relative flex flex-col group"
-      onMouseEnter={handleMouseEnter}
-      onMouseLeave={handleMouseLeave}
-    >
+    <div className="relative flex flex-col">
       <div className="w-[60%] mx-auto h-[480px] flex items-end relative">
-        {/* Photo statique */}
-        {member.photo && (
-          <img
-            src={member.photo}
-            alt={member.name}
-            className="w-full h-full object-contain object-bottom absolute inset-0"
-          />
-        )}
-        {/* Vidéo au survol */}
-        <video
-          ref={videoRef}
-          src={videoSrc}
-          muted
-          loop
-          playsInline
-          className="w-full h-full object-contain object-bottom absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-300"
+        <MemberPhoto
+          member={member}
+          className="w-full h-full"
+          imgClassName="object-contain object-bottom"
+          videoClassName="object-contain object-bottom"
         />
       </div>
 
-      <div className="px-8 py-8 bg-zinc-950 border-t border-zinc-900">
-        <p className="text-white text-xl font-black tracking-widest mb-1">{member.name}</p>
-        <p className="text-zinc-500 text-[10px] tracking-[0.3em] uppercase mb-5">{t(member.role)}</p>
-        {member.bio && (
-          <div className="space-y-4">
-            {(Array.isArray(member.bio) ? member.bio : [member.bio]).map((paragraph, i) => (
-              <p key={i} className="text-zinc-400 text-sm leading-loose">
-                {t(paragraph)}
-              </p>
-            ))}
+      <div className="relative px-8 md:px-10 py-8 md:py-10 bg-zinc-950 border-t border-zinc-900 overflow-hidden">
+        {/* Giant outlined initial — pure typography, no color outside the palette */}
+        <span
+          aria-hidden="true"
+          className={`pointer-events-none select-none absolute -top-6 md:-top-10 text-[6rem] md:text-[9rem] font-black leading-none text-transparent ${
+            mirrored ? "-right-2 md:right-2" : "-left-2 md:left-2"
+          }`}
+          style={{ WebkitTextStroke: "1px rgba(255,255,255,0.05)" }}
+        >
+          {initial}
+        </span>
+
+        <div className={`relative z-10 ${mirrored ? "text-right" : ""}`}>
+          <p className="text-white text-2xl md:text-3xl font-black tracking-widest">{member.name}</p>
+          <div className={`flex items-center gap-3 mt-3 ${mirrored ? "flex-row-reverse" : ""}`}>
+            <motion.span
+              className="h-px bg-zinc-700 origin-left"
+              style={{ width: 40 }}
+              initial={shouldReduceMotion ? false : { scaleX: 0 }}
+              whileInView={shouldReduceMotion ? undefined : { scaleX: 1 }}
+              viewport={{ once: true, amount: 0.6 }}
+              transition={{ duration: 0.7, ease: EASE }}
+            />
+            <p className="text-zinc-500 text-[10px] tracking-[0.3em] uppercase">{t(member.role)}</p>
           </div>
-        )}
+        </div>
       </div>
     </div>
   );

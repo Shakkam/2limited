@@ -75,7 +75,7 @@
     "spotify": null
   },
   "contact": {
-    "email": "contact@2limited.com"
+    "email": "shakkam.music@gmail.com"
   },
   "albums": [],
   "tracks": [
@@ -123,10 +123,18 @@
   ],
   "_showsFormat": {
     "date": "ISO date (YYYY-MM-DD) — upcoming vs past is derived from this, no manual moving needed",
+    "time": "optional, 24h HH:mm",
     "city": "plain string",
     "venue": "plain string, or { fr, en } if it needs translating",
     "note": "optional, e.g. { fr: 'Première partie', en: 'Support act' }",
     "ticketUrl": "optional — shows a Tickets link when present"
   },
-  "shows": []
+  "shows": [
+    {
+      "date": "2026-09-19",
+      "time": "20:00",
+      "city": "Léognan",
+      "venue": "Lac Bleu"
+    }
+  ]
 }
