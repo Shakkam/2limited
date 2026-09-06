@@ -1,0 +1,67 @@
+{
+  "nav": {
+    "home": { "fr": "ACCUEIL", "en": "HOME" },
+    "band": { "fr": "GROUPE", "en": "BAND" },
+    "music": { "fr": "MUSIQUE", "en": "MUSIC" },
+    "shows": { "fr": "CONCERTS", "en": "SHOWS" },
+    "media": { "fr": "MÉDIAS", "en": "MEDIA" },
+    "contact": { "fr": "CONTACT", "en": "CONTACT" }
+  },
+  "home": {
+    "tagline": { "fr": "Vibe électro-acoustique", "en": "Electro acoustic vibe" }
+  },
+  "band": {
+    "eyebrow": { "fr": "À propos", "en": "About" },
+    "title": { "fr": "LE GROUPE", "en": "THE BAND" }
+  },
+  "music": {
+    "eyebrow": { "fr": "Discographie", "en": "Discography" },
+    "title": { "fr": "MUSIQUE", "en": "MUSIC" },
+    "latestRecording": { "fr": "Dernier enregistrement", "en": "Latest recording" },
+    "moreRecordings": { "fr": "Autres enregistrements", "en": "More recordings" },
+    "play": { "fr": "Lecture", "en": "Play" },
+    "pause": { "fr": "Pause", "en": "Pause" }
+  },
+  "shows": {
+    "eyebrow": { "fr": "Sur scène", "en": "On stage" },
+    "title": { "fr": "CONCERTS", "en": "SHOWS" },
+    "upcoming": { "fr": "Prochaines dates", "en": "Upcoming shows" },
+    "past": { "fr": "Déjà joués", "en": "Past shows" },
+    "none": { "fr": "Prochaines dates bientôt annoncées", "en": "Dates coming soon" },
+    "tickets": { "fr": "Billetterie", "en": "Tickets" }
+  },
+  "media": {
+    "eyebrow": { "fr": "Voir & écouter", "en": "Watch & see" },
+    "title": { "fr": "MÉDIAS", "en": "MEDIA" },
+    "videos": { "fr": "Vidéos", "en": "Videos" },
+    "photos": { "fr": "Photos", "en": "Photos" },
+    "videosSoon": { "fr": "Vidéos à venir", "en": "Videos coming soon" },
+    "photosSoon": { "fr": "Photos à venir", "en": "Photos coming soon" }
+  },
+  "contact": {
+    "eyebrow": { "fr": "Nous écrire", "en": "Get in touch" },
+    "title": { "fr": "CONTACT", "en": "CONTACT" },
+    "orEmail": { "fr": "Ou directement par email", "en": "Or email directly" },
+    "name": { "fr": "NOM", "en": "NAME" },
+    "namePlaceholder": { "fr": "Votre nom", "en": "Your name" },
+    "email": { "fr": "EMAIL", "en": "EMAIL" },
+    "emailPlaceholder": { "fr": "votre@email.com", "en": "your@email.com" },
+    "message": { "fr": "MESSAGE", "en": "MESSAGE" },
+    "messagePlaceholder": { "fr": "Votre message…", "en": "Your message..." },
+    "send": { "fr": "ENVOYER", "en": "SEND" },
+    "sending": { "fr": "ENVOI…", "en": "SENDING..." },
+    "sent": { "fr": "MESSAGE ENVOYÉ", "en": "MESSAGE SENT" },
+    "sentBody": {
+      "fr": "Merci, nous vous répondrons rapidement.",
+      "en": "Thank you, we'll get back to you soon."
+    },
+    "sendAnother": { "fr": "ENVOYER UN AUTRE MESSAGE", "en": "SEND ANOTHER" },
+    "error": {
+      "fr": "Une erreur est survenue. Merci de réessayer.",
+      "en": "Something went wrong. Please try again."
+    }
+  },
+  "language": {
+    "label": { "fr": "Langue", "en": "Language" }
+  }
+}

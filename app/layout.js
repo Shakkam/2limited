@@ -3,6 +3,7 @@ import Navbar from "@/components/Navbar";
 import PageTransition from "@/components/PageTransition";
 import SocialFloat from "@/components/SocialFloat";
 import Footer from "@/components/Footer";
+import { LanguageProvider } from "@/components/LanguageProvider";
 
 export const metadata = {
   title: "2-LIMITED",
@@ -13,10 +14,12 @@ export default function RootLayout({ children }) {
   return (
     <html lang="en">
       <body className="bg-black text-white min-h-screen flex flex-col">
-        <Navbar />
-        <PageTransition>{children}</PageTransition>
-        <Footer />
-        <SocialFloat />
+        <LanguageProvider>
+          <Navbar />
+          <PageTransition>{children}</PageTransition>
+          <Footer />
+          <SocialFloat />
+        </LanguageProvider>
       </body>
     </html>
   );

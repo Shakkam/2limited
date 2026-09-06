@@ -2,12 +2,15 @@
 
 import { useEffect, useState } from "react";
 import data from "@/data/content.json";
+import ui from "@/data/ui.json";
 import FadeUp from "@/components/FadeUp";
 import AudioPlayer from "@/components/AudioPlayer";
 import FeaturedTrack from "@/components/FeaturedTrack";
+import { useLanguage } from "@/components/LanguageProvider";
 
 export default function Music() {
   const { albums } = data;
+  const { t } = useLanguage();
   const tracks = data.tracks || [];
   const photos = data.photos || [];
   const [featured, ...moreTracks] = tracks;
@@ -45,8 +48,10 @@ export default function Music() {
         {/* Hero — shorter than the other pages' so the photo wall gets more room right below it */}
         <div className="shrink-0 h-48 pt-24 bg-zinc-950 relative flex items-end px-10 pb-6 border-b border-zinc-900">
           <div>
-            <p className="text-zinc-600 text-[10px] tracking-[0.4em] uppercase mb-1">Discography</p>
-            <h1 className="text-2xl font-black tracking-widest text-white">MUSIC</h1>
+            <p className="text-zinc-600 text-[10px] tracking-[0.4em] uppercase mb-1">
+              {t(ui.music.eyebrow)}
+            </p>
+            <h1 className="text-2xl font-black tracking-widest text-white">{t(ui.music.title)}</h1>
           </div>
         </div>
 
@@ -55,8 +60,9 @@ export default function Music() {
           <div className="flex-1 min-h-0">
             <FeaturedTrack
               src={featured.src}
-              title={featured.title}
-              subtitle={featured.subtitle}
+              title={t(featured.title)}
+              subtitle={t(featured.subtitle)}
+              label={t(ui.music.latestRecording)}
               photos={photos}
             />
           </div>
@@ -67,11 +73,13 @@ export default function Music() {
           normally if this ever has content */}
       {moreTracks.length > 0 && (
         <div className="px-10 pt-12">
-          <p className="text-zinc-600 text-[10px] tracking-[0.4em] uppercase mb-5">More Recordings</p>
+          <p className="text-zinc-600 text-[10px] tracking-[0.4em] uppercase mb-5">
+            {t(ui.music.moreRecordings)}
+          </p>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-5 max-w-3xl">
             {moreTracks.map((track, i) => (
               <FadeUp key={i} delay={i * 0.1}>
-                <AudioPlayer src={track.src} title={track.title} subtitle={track.subtitle} />
+                <AudioPlayer src={track.src} title={t(track.title)} subtitle={t(track.subtitle)} />
               </FadeUp>
             ))}
           </div>

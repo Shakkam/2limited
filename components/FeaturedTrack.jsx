@@ -3,6 +3,8 @@
 import { useCallback, useEffect, useRef, useState } from "react";
 import { motion } from "framer-motion";
 import PhotoScatter from "@/components/PhotoScatter";
+import ui from "@/data/ui.json";
+import { useLanguage } from "@/components/LanguageProvider";
 
 const BAR_COUNT = 72;
 
@@ -27,6 +29,7 @@ export default function FeaturedTrack({ src, title, subtitle, label = "Latest Re
   const barRef = useRef(null);
   const rafRef = useRef(null);
   const containerRef = useRef(null);
+  const { t } = useLanguage();
   const [isPlaying, setIsPlaying] = useState(false);
   const [progress, setProgress] = useState(0);
   const [duration, setDuration] = useState(0);
@@ -181,7 +184,7 @@ export default function FeaturedTrack({ src, title, subtitle, label = "Latest Re
             )}
             <motion.button
               onClick={togglePlay}
-              aria-label={isPlaying ? "Pause" : "Play"}
+              aria-label={isPlaying ? t(ui.music.pause) : t(ui.music.play)}
               whileHover={{ scale: 1.06 }}
               whileTap={{ scale: 0.92 }}
               className="relative w-24 h-24 rounded-full bg-white flex items-center justify-center shadow-[0_0_50px_rgba(255,255,255,0.25)]"

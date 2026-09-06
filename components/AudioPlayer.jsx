@@ -2,6 +2,8 @@
 
 import { useEffect, useRef, useState } from "react";
 import { motion } from "framer-motion";
+import ui from "@/data/ui.json";
+import { useLanguage } from "@/components/LanguageProvider";
 
 function formatTime(seconds) {
   if (!isFinite(seconds) || seconds < 0) return "0:00";
@@ -38,6 +40,7 @@ function Equalizer({ playing }) {
 export default function AudioPlayer({ src, title, subtitle }) {
   const audioRef = useRef(null);
   const barRef = useRef(null);
+  const { t } = useLanguage();
   const [isPlaying, setIsPlaying] = useState(false);
   const [progress, setProgress] = useState(0);
   const [duration, setDuration] = useState(0);
@@ -99,7 +102,7 @@ export default function AudioPlayer({ src, title, subtitle }) {
 
       <motion.button
         onClick={togglePlay}
-        aria-label={isPlaying ? "Pause" : "Play"}
+        aria-label={isPlaying ? t(ui.music.pause) : t(ui.music.play)}
         whileHover={{ scale: 1.06 }}
         whileTap={{ scale: 0.94 }}
         className="shrink-0 w-14 h-14 rounded-full bg-white flex items-center justify-center shadow-[0_0_0_1px_rgba(255,255,255,0.1)]"
