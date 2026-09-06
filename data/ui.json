@@ -26,6 +26,8 @@
     "eyebrow": { "fr": "Sur scène", "en": "On stage" },
     "title": { "fr": "CONCERTS", "en": "SHOWS" },
     "upcoming": { "fr": "Prochaines dates", "en": "Upcoming shows" },
+    "next": { "fr": "Prochain concert", "en": "Next show" },
+    "alsoUpcoming": { "fr": "Aussi à venir", "en": "Also coming up" },
     "past": { "fr": "Déjà joués", "en": "Past shows" },
     "none": { "fr": "Prochaines dates bientôt annoncées", "en": "Dates coming soon" },
     "tickets": { "fr": "Billetterie", "en": "Tickets" }

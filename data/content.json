@@ -134,7 +134,11 @@
       "date": "2026-09-19",
       "time": "20:00",
       "city": "Léognan",
-      "venue": "Lac Bleu"
+      "venue": "Lac Bleu",
+      "note": {
+        "fr": "Restauration & boissons sur place — Aux Délices d'Alex",
+        "en": "Food & drinks on site — Aux Délices d'Alex"
+      }
     }
   ]
 }
