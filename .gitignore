@@ -2,3 +2,7 @@ node_modules/
 .next/
 .env
 .env.local
+
+# stray local logs
+.dev-stdout.log
+.dev-stderr.log
