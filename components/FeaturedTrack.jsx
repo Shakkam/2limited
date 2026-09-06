@@ -132,6 +132,10 @@ export default function FeaturedTrack({ src, title, subtitle, label = "Latest Re
     <div
       ref={containerRef}
       className="relative overflow-hidden bg-black h-full flex items-center"
+      // Same reason as in PhotoScatter: overflow alone doesn't reliably clip
+      // 3D-transformed descendants, which let photos spill past this section
+      // and add phantom scroll height to the page.
+      style={{ clipPath: "inset(0)" }}
       onMouseMove={handleMouseMove}
       onMouseLeave={handleMouseLeave}
       onTouchMove={handleTouchMove}

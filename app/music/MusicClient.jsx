@@ -18,14 +18,22 @@ export default function Music() {
   const [fitHeight, setFitHeight] = useState(null);
 
   useEffect(() => {
+    const footer = document.querySelector("footer");
     const measure = () => {
-      const footer = document.querySelector("footer");
       const footerHeight = footer ? footer.getBoundingClientRect().height : 0;
       setFitHeight(window.innerHeight - footerHeight);
     };
     measure();
     window.addEventListener("resize", measure);
-    return () => window.removeEventListener("resize", measure);
+    // Also watch the footer itself — its height can change after mount
+    // (web font swap, locale text wrapping differently) independent of any
+    // window resize, which would otherwise leave a stale, slightly-off fit.
+    const observer = footer ? new ResizeObserver(measure) : null;
+    observer?.observe(footer);
+    return () => {
+      window.removeEventListener("resize", measure);
+      observer?.disconnect();
+    };
   }, []);
 
   return (
@@ -35,7 +43,7 @@ export default function Music() {
         style={{ height: fitHeight ? `${fitHeight}px` : "100vh" }}
       >
         {/* Hero — shorter than the other pages' so the photo wall gets more room right below it */}
-        <div className="shrink-0 h-32 pt-16 bg-zinc-950 relative flex items-end px-10 pb-4 border-b border-zinc-900">
+        <div className="shrink-0 h-48 pt-24 bg-zinc-950 relative flex items-end px-10 pb-6 border-b border-zinc-900">
           <div>
             <p className="text-zinc-600 text-[10px] tracking-[0.4em] uppercase mb-1">Discography</p>
             <h1 className="text-2xl font-black tracking-widest text-white">MUSIC</h1>

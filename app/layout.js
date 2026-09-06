@@ -12,7 +12,7 @@ export const metadata = {
 export default function RootLayout({ children }) {
   return (
     <html lang="en">
-      <body className="bg-black text-white min-h-screen">
+      <body className="bg-black text-white min-h-screen flex flex-col">
         <Navbar />
         <PageTransition>{children}</PageTransition>
         <Footer />

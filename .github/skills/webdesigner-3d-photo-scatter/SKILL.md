@@ -41,6 +41,18 @@ Photos sit on a **concave dome curving in front of the viewer**, not a full
    (`overflow-hidden`, no 3D), and an inner one that only holds the 3D
    context (`perspective` + `preserve-3d`, no overflow).
 
+1b. **…and `overflow: hidden` doesn't actually *clip* 3D descendants
+   either.** The flip side of the same browser behavior: in Chrome, an
+   ancestor's `overflow: hidden` does **not** reliably clip
+   `preserve-3d`-transformed descendants. The photos genuinely escaped the
+   section, painted over the footer below it, and **inflated the document's
+   scroll height** — which presented as a phantom vertical scrollbar that no
+   amount of `overflow-x: hidden` or section-height tuning could fix. The
+   fix is `clip-path: inset(0)` on the clipping box (on both the section and
+   the photo layer here): a hard clip that 3D content can't escape. **Symptom
+   to recognize:** content visibly rendering past a container's boundary
+   (e.g. over the footer) plus unexplained page scroll.
+
 2. **`sin()`/`cos()` reverse past 90°.** A photo's screen position is driven
    by `sin(effectiveAngle)`. Once the combined angle (a row's own angle plus
    the mouse-driven rotation) exceeds ~90°, `sin` peaks and starts
@@ -81,6 +93,17 @@ Photos sit on a **concave dome curving in front of the viewer**, not a full
    #1).** If two photos ever overlap in the wrong order, this is the first
    thing to check, not the individual `z` math.
 
+6b. **Spacing compensation must account for the edge growth (#5), on both
+   axes.** Rows sit ~300px apart but an edge photo grows to ~380px tall, so
+   without compensation neighbouring rows visibly overlap. Each photo is
+   nudged away from center proportionally to how much it grew:
+   `SPACING_COMPENSATION_Y` is **1.0** (full compensation — exactly cancels
+   the growth, since a photo that grows by `(scaleY-1)*BASE_H` gains half of
+   that on each side), while `SPACING_COMPENSATION_X` at 0.4 is enough
+   horizontally because the columns are further apart. If overlap reappears,
+   check row spacing against `BASE_H × max scaleY` before touching anything
+   else.
+
 7. **This is a deliberate approximation, not a WebGL clone.** The
    inspiration sites (e.g. a Codrops "3D image tube" build, or a
    `ThreeSphereGallery`/`ThreeCameraPerspective`-based portfolio) use a real
@@ -115,6 +138,24 @@ Photos sit on a **concave dome curving in front of the viewer**, not a full
   of any `min-h-[Xvh]` guess. See `app/music/MusicClient.jsx` +
   `app/music/page.js` (metadata must stay in a server `page.js`; the
   measuring logic lives in the client child).
+
+## Debugging: check the shared layout *before* tuning the effect
+
+Two of the longest-running bugs in this build (a permanent scrollbar and a
+dead black band above the footer) had **nothing to do with the effect** —
+they came from `components/PageTransition.jsx`, the wrapper that every page
+goes through, which carried `min-h-screen`. Combined with the `<Footer />`
+rendered after it in `app/layout.js`, every page was structurally
+`100vh + footerHeight` tall: a permanent scrollbar exactly as tall as the
+footer, and, on a page sized to fit the viewport, a forced empty band inside
+the wrapper. The fix was the standard sticky-footer pattern: `body` as
+`min-h-screen flex flex-col`, page wrapper as `flex-1`.
+
+**Rule of thumb:** if the symptom is "the page is slightly too tall" or
+"there's dead space I can't account for", read `app/layout.js` and the page
+wrapper components *first*. Repeatedly adjusting section heights, margins,
+paddings or row math from inside the page cannot fix a floor imposed one
+level up — and each such attempt looks like a regression to the user.
 
 ## Touch support
 

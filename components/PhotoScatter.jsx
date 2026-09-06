@@ -3,45 +3,49 @@
 import { motion } from "framer-motion";
 
 // Photos placed across a horizontal dome curving in front of the viewer, in
-// 6 rows of at most 4 (az = azimuth/left-right angle; altPx = fixed row
-// height in px, spaced 270px apart — 50% more than before, for real vertical
-// travel). The "sphere" effect — rotation, trapezoid, growth — is horizontal
-// only. Moving the mouse up/down is a plain linear pan, no curvature.
-// sizeScale (0.7-1) varies each photo's size for an organic, non-mechanical
-// field.
+// 6 rows of at most 4 (az = azimuth/left-right angle; altPx = row height in
+// px from the section's center). The "sphere" effect — rotation, trapezoid,
+// growth — is horizontal only. Moving the mouse up/down is a plain linear pan
+// on top of this, no curvature. sizeScale (0.7-1) varies each photo's size
+// for an organic, non-mechanical field.
+//
+// Rows deliberately extend past the section's edges at rest and get clipped —
+// that's what keeps the field looking full. The mouse pan range is then
+// solved (below) so that at the extreme, the outermost row's own center photo
+// lands exactly VERTICAL_MARGIN from the real edge.
 const BASE_W = 200;
 const BASE_H = 250;
 
 const PHOTOS_3D = [
   // Row 1 — top
-  { az: -100, altPx: -475, sizeScale: 0.8, tilt: -5 },
-  { az: -33, altPx: -475, sizeScale: 1.0, tilt: 4 },
-  { az: 33, altPx: -475, sizeScale: 0.85, tilt: -4 },
-  { az: 100, altPx: -475, sizeScale: 0.95, tilt: 6 },
+  { az: -100, altPx: -750, sizeScale: 0.8, tilt: -5 },
+  { az: -33, altPx: -750, sizeScale: 1.0, tilt: 4 },
+  { az: 33, altPx: -750, sizeScale: 0.85, tilt: -4 },
+  { az: 100, altPx: -750, sizeScale: 0.95, tilt: 6 },
   // Row 2 (offset so it doesn't stack under row 1)
-  { az: -66, altPx: -285, sizeScale: 0.9, tilt: -3 },
-  { az: 0, altPx: -285, sizeScale: 0.75, tilt: 5 },
-  { az: 66, altPx: -285, sizeScale: 1.0, tilt: -5 },
-  { az: 120, altPx: -285, sizeScale: 0.8, tilt: 4 },
+  { az: -66, altPx: -450, sizeScale: 0.9, tilt: -3 },
+  { az: 0, altPx: -450, sizeScale: 0.75, tilt: 5 },
+  { az: 66, altPx: -450, sizeScale: 1.0, tilt: -5 },
+  { az: 120, altPx: -450, sizeScale: 0.8, tilt: 4 },
   // Row 3
-  { az: -100, altPx: -95, sizeScale: 0.85, tilt: -6 },
-  { az: -33, altPx: -95, sizeScale: 1.0, tilt: 3 },
-  { az: 33, altPx: -95, sizeScale: 0.8, tilt: -3 },
-  { az: 100, altPx: -95, sizeScale: 0.9, tilt: 5 },
+  { az: -100, altPx: -150, sizeScale: 0.85, tilt: -6 },
+  { az: -33, altPx: -150, sizeScale: 1.0, tilt: 3 },
+  { az: 33, altPx: -150, sizeScale: 0.8, tilt: -3 },
+  { az: 100, altPx: -150, sizeScale: 0.9, tilt: 5 },
   // Row 4
-  { az: -66, altPx: 95, sizeScale: 1.0, tilt: -4 },
-  { az: 0, altPx: 95, sizeScale: 0.8, tilt: 6 },
-  { az: 66, altPx: 95, sizeScale: 0.9, tilt: -6 },
-  { az: 120, altPx: 95, sizeScale: 0.85, tilt: 3 },
+  { az: -66, altPx: 150, sizeScale: 1.0, tilt: -4 },
+  { az: 0, altPx: 150, sizeScale: 0.8, tilt: 6 },
+  { az: 66, altPx: 150, sizeScale: 0.9, tilt: -6 },
+  { az: 120, altPx: 150, sizeScale: 0.85, tilt: 3 },
   // Row 5
-  { az: -100, altPx: 285, sizeScale: 0.9, tilt: -3 },
-  { az: -33, altPx: 285, sizeScale: 0.8, tilt: 5 },
-  { az: 33, altPx: 285, sizeScale: 1.0, tilt: -5 },
-  { az: 100, altPx: 285, sizeScale: 0.85, tilt: 4 },
+  { az: -100, altPx: 450, sizeScale: 0.9, tilt: -3 },
+  { az: -33, altPx: 450, sizeScale: 0.8, tilt: 5 },
+  { az: 33, altPx: 450, sizeScale: 1.0, tilt: -5 },
+  { az: 100, altPx: 450, sizeScale: 0.85, tilt: 4 },
   // Row 6 — bottom
-  { az: -60, altPx: 475, sizeScale: 0.85, tilt: -4 },
-  { az: 0, altPx: 475, sizeScale: 1.0, tilt: 5 },
-  { az: 60, altPx: 475, sizeScale: 0.8, tilt: -5 },
+  { az: -60, altPx: 750, sizeScale: 0.85, tilt: -4 },
+  { az: 0, altPx: 750, sizeScale: 1.0, tilt: 5 },
+  { az: 60, altPx: 750, sizeScale: 0.8, tilt: -5 },
 ];
 
 const BASE_RADIUS = 820; // horizontal (azimuth) radius
@@ -52,7 +56,8 @@ const INDIVIDUAL_SKEW_FACTOR = 0.85; // how much of the *current* horizontal dis
 const MAX_INDIVIDUAL_SKEW = 60; // cap so a photo's own face is never edge-on, however far it swings
 const EDGE_GROWTH_X = 1.1; // extra width at the far edge — measured ×2.1 on the reference site
 const EDGE_GROWTH_Y = 0.4; // extra height at the far edge — measured ×1.3-1.5 on the reference site
-const SPACING_COMPENSATION = 0.4; // push a photo further out as it grows, so growing doesn't eat into the gap to its neighbor
+const SPACING_COMPENSATION_X = 0.4; // push a photo further out as it grows, so growing doesn't eat into the gap to its neighbor
+const SPACING_COMPENSATION_Y = 1.0; // vertically, compensate fully — rows are only ~300px apart and an edge photo grows to ~380px tall
 const POSITION_CLAMP_DEG = 75; // beyond this, keep sliding outward in a straight line instead of following sin/cos back toward center
 
 const clamp = (v, min, max) => Math.max(min, Math.min(max, v));
@@ -100,7 +105,12 @@ export default function PhotoScatter({ photos = [], mouse = { x: 0, y: 0 }, fram
   const verticalPan = -mouse.y * verticalPanRange;
 
   return (
-    <div className="absolute inset-0 overflow-hidden">
+    // clipPath (not just overflow-hidden): Chrome does NOT reliably clip
+    // `preserve-3d` descendants with overflow alone — the photos were really
+    // escaping this box, rendering over the footer and inflating the
+    // document's scroll height (that was the phantom scrollbar). clip-path
+    // forces a hard clip that 3D content can't escape.
+    <div className="absolute inset-0 overflow-hidden" style={{ clipPath: "inset(0)" }}>
       {/* overflow-hidden here (to clip to the section) would otherwise force
           transform-style back to flat on any element it's combined with —
           so the real 3D/depth-sorted layer lives on this separate child. */}
@@ -143,7 +153,13 @@ export default function PhotoScatter({ photos = [], mouse = { x: 0, y: 0 }, fram
           // Growing outward can eat into the gap to the next photo — nudge it
           // further out proportionally to how much it grew, so neighbors keep
           // their spacing instead of crowding together at the edges.
-          const spacingPushX = Math.sign(x) * (scaleX - 1) * (BASE_W / 2) * SPACING_COMPENSATION;
+          // Vertically this is full (1.0) compensation: a photo that grew by
+          // (scaleY-1)*BASE_H gains exactly half of that on each side, so
+          // pushing it out by that much leaves the row-to-row gap unchanged.
+          // Without it, edge photos (up to ×1.5 tall) overlapped the row above
+          // and below.
+          const spacingPushX = Math.sign(x) * (scaleX - 1) * (BASE_W / 2) * SPACING_COMPENSATION_X;
+          const spacingPushY = Math.sign(y) * (scaleY - 1) * (BASE_H / 2) * SPACING_COMPENSATION_Y;
 
           return (
             <motion.div
@@ -159,7 +175,7 @@ export default function PhotoScatter({ photos = [], mouse = { x: 0, y: 0 }, fram
               }}
               animate={{
                 x: x + spacingPushX,
-                y,
+                y: y + spacingPushY,
                 z,
                 rotateY: skewY,
                 rotate: p.tilt,
