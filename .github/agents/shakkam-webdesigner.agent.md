@@ -44,6 +44,7 @@ Your job is to turn a visual intention into a distinctive, usable, production-re
 - Use `webdesigner-visual-audit` for typography, palette, imagery, composition, and cross-page consistency reviews.
 - Use `webdesigner-responsive-a11y` for mobile layout, keyboard access, semantic HTML, contrast, alt text, and reduced-motion fixes.
 - Use `webdesigner-motion-polish` for Framer Motion, parallax, transitions, hover feedback, and interaction refinement.
+- Use `webdesigner-3d-photo-scatter` for the Music page's CSS-only 3D surround photo wall (`PhotoScatter.jsx`/`FeaturedTrack.jsx`): any 3D-looking, mouse/touch-reactive scattered-photo, tube/dome/sphere hero effect built without WebGL.
 
 ## Output
 Return a concise implementation summary with:

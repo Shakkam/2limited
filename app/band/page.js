@@ -10,10 +10,10 @@ export default function Band() {
   return (
     <div className="min-h-screen">
       {/* Hero */}
-      <div className="h-64 pt-24 bg-zinc-950 relative flex items-end px-10 pb-8 border-b border-zinc-900">
+      <div className="h-48 pt-24 bg-zinc-950 relative flex items-end px-10 pb-6 border-b border-zinc-900">
         <FadeUp>
-          <p className="text-zinc-600 text-[10px] tracking-[0.4em] uppercase mb-2">About</p>
-          <h1 className="text-3xl font-black tracking-widest text-white">THE BAND</h1>
+          <p className="text-zinc-600 text-[10px] tracking-[0.4em] uppercase mb-1">About</p>
+          <h1 className="text-2xl font-black tracking-widest text-white">THE BAND</h1>
         </FadeUp>
       </div>
 
