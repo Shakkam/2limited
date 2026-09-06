@@ -30,7 +30,8 @@
     "alsoUpcoming": { "fr": "Aussi à venir", "en": "Also coming up" },
     "past": { "fr": "Déjà joués", "en": "Past shows" },
     "none": { "fr": "Prochaines dates bientôt annoncées", "en": "Dates coming soon" },
-    "tickets": { "fr": "Billetterie", "en": "Tickets" }
+    "tickets": { "fr": "Billetterie", "en": "Tickets" },
+    "poster": { "fr": "Voir l'affiche", "en": "View poster" }
   },
   "media": {
     "eyebrow": { "fr": "Voir & écouter", "en": "Watch & see" },

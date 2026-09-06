@@ -127,7 +127,8 @@
     "city": "plain string",
     "venue": "plain string, or { fr, en } if it needs translating",
     "note": "optional, e.g. { fr: 'Première partie', en: 'Support act' }",
-    "ticketUrl": "optional — shows a Tickets link when present"
+    "ticketUrl": "optional — shows a Tickets link when present",
+    "posterSrc": "optional — path to a poster image, shown as a small 'View poster' link"
   },
   "shows": [
     {
@@ -138,7 +139,8 @@
       "note": {
         "fr": "Restauration & boissons sur place — Aux Délices d'Alex",
         "en": "Food & drinks on site — Aux Délices d'Alex"
-      }
+      },
+      "posterSrc": "/images/affiche-concert-19-09-2026.jpg"
     }
   ]
 }

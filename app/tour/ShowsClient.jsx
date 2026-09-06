@@ -66,15 +66,29 @@ function NextShowSpotlight({ show, lang, t }) {
               {t(show.note)}
             </p>
           )}
-          {show.ticketUrl && (
-            <a
-              href={show.ticketUrl}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="inline-block mt-6 border border-zinc-700 text-zinc-300 text-[10px] font-bold tracking-widest px-6 py-3 hover:border-white hover:text-white transition-colors"
-            >
-              {t(ui.shows.tickets)}
-            </a>
+          {(show.ticketUrl || show.posterSrc) && (
+            <div className="flex flex-wrap items-center gap-4 mt-6 md:justify-end">
+              {show.ticketUrl && (
+                <a
+                  href={show.ticketUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-block border border-zinc-700 text-zinc-300 text-[10px] font-bold tracking-widest px-6 py-3 hover:border-white hover:text-white transition-colors"
+                >
+                  {t(ui.shows.tickets)}
+                </a>
+              )}
+              {show.posterSrc && (
+                <a
+                  href={show.posterSrc}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-zinc-500 text-[10px] font-bold tracking-widest underline underline-offset-4 decoration-zinc-700 hover:text-white hover:decoration-white transition-colors"
+                >
+                  {t(ui.shows.poster)}
+                </a>
+              )}
+            </div>
           )}
         </div>
       </div>
