@@ -86,6 +86,14 @@
         "en": "Supertramp Cover"
       },
       "src": "/music/goodbye-stranger.mp3"
+    },
+    {
+      "title": "Street Spirit",
+      "subtitle": {
+        "fr": "Reprise de Radiohead",
+        "en": "Radiohead Cover"
+      },
+      "src": "/music/street-spirit.mp3"
     }
   ],
   "photos": [
