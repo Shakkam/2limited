@@ -179,34 +179,46 @@ export default function FeaturedTrack({
           {label}
         </p>
 
-        <div className="relative flex justify-center">
+        <div className="relative flex flex-col items-center mb-6">
           {canPickTrack ? (
             <button
               type="button"
               onClick={() => setPickerOpen((o) => !o)}
               aria-haspopup="listbox"
               aria-expanded={pickerOpen}
-              className="group inline-flex flex-col items-center"
+              className="group inline-flex items-center gap-3 md:gap-4 outline-none"
             >
-              <span className="inline-flex items-center gap-3">
-                <h2 className="text-white font-black tracking-tight text-center text-[13vw] leading-[0.9] md:text-6xl lg:text-7xl uppercase mb-2 group-hover:text-zinc-200 transition-colors">
-                  {title}
-                </h2>
+              <h2 className="text-white font-black tracking-tight text-center text-[13vw] leading-[0.9] md:text-6xl lg:text-7xl uppercase group-hover:text-zinc-300 transition-colors">
+                {title}
+              </h2>
+              <span
+                className={`shrink-0 flex items-center justify-center w-8 h-8 md:w-10 md:h-10 rounded-full border transition-colors ${
+                  pickerOpen
+                    ? "border-white bg-white/10"
+                    : "border-zinc-500 group-hover:border-white group-hover:bg-white/5"
+                }`}
+              >
                 <svg
-                  width="18"
-                  height="18"
+                  width="14"
+                  height="14"
                   viewBox="0 0 20 20"
                   fill="none"
-                  className={`shrink-0 mt-1 transition-transform duration-200 ${pickerOpen ? "rotate-180" : ""}`}
+                  className={`transition-transform duration-200 ${pickerOpen ? "rotate-180" : ""}`}
                 >
                   <path d="M5 8l5 5 5-5" stroke="white" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
                 </svg>
               </span>
             </button>
           ) : (
-            <h2 className="text-white font-black tracking-tight text-center text-[13vw] leading-[0.9] md:text-6xl lg:text-7xl uppercase mb-2">
+            <h2 className="text-white font-black tracking-tight text-center text-[13vw] leading-[0.9] md:text-6xl lg:text-7xl uppercase">
               {title}
             </h2>
+          )}
+
+          {subtitle && (
+            <p className="text-zinc-300 text-xs md:text-sm tracking-[0.4em] uppercase text-center mt-2">
+              {subtitle}
+            </p>
           )}
 
           {canPickTrack && pickerOpen && (
@@ -215,7 +227,7 @@ export default function FeaturedTrack({
               <div className="fixed inset-0 z-20" onClick={() => setPickerOpen(false)} />
               <div
                 role="listbox"
-                className="absolute top-full mt-2 z-30 min-w-[16rem] max-h-[50vh] overflow-y-auto bg-zinc-950/95 backdrop-blur-md border border-zinc-800"
+                className="absolute top-full mt-4 z-30 min-w-[18rem] max-h-[50vh] overflow-y-auto bg-zinc-950 shadow-[0_20px_60px_rgba(0,0,0,0.6)] border border-zinc-800 divide-y divide-zinc-900"
                 style={{ textShadow: "none" }}
               >
                 {tracks.map((trackItem, i) => (
@@ -228,30 +240,31 @@ export default function FeaturedTrack({
                       setPickerOpen(false);
                       onSelectTrack?.(i);
                     }}
-                    className={`block w-full text-left px-6 py-3 border-b border-zinc-900 last:border-0 transition-colors ${
-                      i === activeIndex ? "bg-zinc-900" : "hover:bg-zinc-900/60"
+                    className={`flex items-center gap-3 w-full text-left px-6 py-4 transition-colors outline-none ${
+                      i === activeIndex ? "bg-zinc-900" : "hover:bg-zinc-900/70"
                     }`}
                   >
-                    <p className={`text-xs font-bold tracking-widest uppercase ${i === activeIndex ? "text-white" : "text-zinc-400"}`}>
-                      {trackItem.title}
-                    </p>
-                    {trackItem.subtitle && (
-                      <p className="text-zinc-600 text-[10px] tracking-[0.2em] uppercase mt-1">
-                        {trackItem.subtitle}
+                    <span
+                      className={`shrink-0 w-1.5 h-1.5 rounded-full ${
+                        i === activeIndex ? "bg-white" : "bg-transparent"
+                      }`}
+                    />
+                    <span>
+                      <p className={`text-xs font-bold tracking-widest uppercase ${i === activeIndex ? "text-white" : "text-zinc-400"}`}>
+                        {trackItem.title}
                       </p>
-                    )}
+                      {trackItem.subtitle && (
+                        <p className="text-zinc-600 text-[10px] tracking-[0.2em] uppercase mt-1">
+                          {trackItem.subtitle}
+                        </p>
+                      )}
+                    </span>
                   </button>
                 ))}
               </div>
             </>
           )}
         </div>
-
-        {subtitle && (
-          <p className="text-zinc-300 text-xs md:text-sm tracking-[0.4em] uppercase text-center mb-6">
-            {subtitle}
-          </p>
-        )}
 
         <div className="flex justify-center mb-6">
           <div className="relative flex items-center justify-center">
