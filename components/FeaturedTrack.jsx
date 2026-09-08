@@ -24,7 +24,16 @@ function formatTime(seconds) {
   return `${m}:${s}`;
 }
 
-export default function FeaturedTrack({ src, title, subtitle, label = "Latest Recording", photos = [] }) {
+export default function FeaturedTrack({
+  src,
+  title,
+  subtitle,
+  label = "Latest Recording",
+  photos = [],
+  tracks = [],
+  activeIndex = 0,
+  onSelectTrack,
+}) {
   const audioRef = useRef(null);
   const barRef = useRef(null);
   const rafRef = useRef(null);
@@ -37,6 +46,20 @@ export default function FeaturedTrack({ src, title, subtitle, label = "Latest Re
   const [mouse, setMouse] = useState({ x: 0, y: 0 });
   const [frameHeight, setFrameHeight] = useState(0);
   const [frameWidth, setFrameWidth] = useState(0);
+  const [pickerOpen, setPickerOpen] = useState(false);
+  const canPickTrack = tracks.length > 1;
+
+  // Switching tracks swaps `src` on the same <audio> element rather than
+  // remounting it — reset playback state so the new track starts clean
+  // instead of inheriting the old one's progress/duration.
+  useEffect(() => {
+    const audio = audioRef.current;
+    if (audio) audio.pause();
+    setIsPlaying(false);
+    setProgress(0);
+    setCurrentTime(0);
+    setDuration(0);
+  }, [src]);
 
   const updateMouseFromPoint = useCallback((currentTarget, clientX, clientY) => {
     const rect = currentTarget.getBoundingClientRect();
@@ -155,9 +178,75 @@ export default function FeaturedTrack({ src, title, subtitle, label = "Latest Re
         <p className="text-zinc-300 text-[10px] tracking-[0.5em] uppercase mb-2 text-center">
           {label}
         </p>
-        <h2 className="text-white font-black tracking-tight text-center text-[13vw] leading-[0.9] md:text-6xl lg:text-7xl uppercase mb-2">
-          {title}
-        </h2>
+
+        <div className="relative flex justify-center">
+          {canPickTrack ? (
+            <button
+              type="button"
+              onClick={() => setPickerOpen((o) => !o)}
+              aria-haspopup="listbox"
+              aria-expanded={pickerOpen}
+              className="group inline-flex flex-col items-center"
+            >
+              <span className="inline-flex items-center gap-3">
+                <h2 className="text-white font-black tracking-tight text-center text-[13vw] leading-[0.9] md:text-6xl lg:text-7xl uppercase mb-2 group-hover:text-zinc-200 transition-colors">
+                  {title}
+                </h2>
+                <svg
+                  width="18"
+                  height="18"
+                  viewBox="0 0 20 20"
+                  fill="none"
+                  className={`shrink-0 mt-1 transition-transform duration-200 ${pickerOpen ? "rotate-180" : ""}`}
+                >
+                  <path d="M5 8l5 5 5-5" stroke="white" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+                </svg>
+              </span>
+            </button>
+          ) : (
+            <h2 className="text-white font-black tracking-tight text-center text-[13vw] leading-[0.9] md:text-6xl lg:text-7xl uppercase mb-2">
+              {title}
+            </h2>
+          )}
+
+          {canPickTrack && pickerOpen && (
+            <>
+              {/* Click-away layer, same pattern as the mobile nav menu */}
+              <div className="fixed inset-0 z-20" onClick={() => setPickerOpen(false)} />
+              <div
+                role="listbox"
+                className="absolute top-full mt-2 z-30 min-w-[16rem] max-h-[50vh] overflow-y-auto bg-zinc-950/95 backdrop-blur-md border border-zinc-800"
+                style={{ textShadow: "none" }}
+              >
+                {tracks.map((trackItem, i) => (
+                  <button
+                    key={i}
+                    type="button"
+                    role="option"
+                    aria-selected={i === activeIndex}
+                    onClick={() => {
+                      setPickerOpen(false);
+                      onSelectTrack?.(i);
+                    }}
+                    className={`block w-full text-left px-6 py-3 border-b border-zinc-900 last:border-0 transition-colors ${
+                      i === activeIndex ? "bg-zinc-900" : "hover:bg-zinc-900/60"
+                    }`}
+                  >
+                    <p className={`text-xs font-bold tracking-widest uppercase ${i === activeIndex ? "text-white" : "text-zinc-400"}`}>
+                      {trackItem.title}
+                    </p>
+                    {trackItem.subtitle && (
+                      <p className="text-zinc-600 text-[10px] tracking-[0.2em] uppercase mt-1">
+                        {trackItem.subtitle}
+                      </p>
+                    )}
+                  </button>
+                ))}
+              </div>
+            </>
+          )}
+        </div>
+
         {subtitle && (
           <p className="text-zinc-300 text-xs md:text-sm tracking-[0.4em] uppercase text-center mb-6">
             {subtitle}

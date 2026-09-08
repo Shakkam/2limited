@@ -3,8 +3,6 @@
 import { useEffect, useState } from "react";
 import data from "@/data/content.json";
 import ui from "@/data/ui.json";
-import FadeUp from "@/components/FadeUp";
-import AudioPlayer from "@/components/AudioPlayer";
 import FeaturedTrack from "@/components/FeaturedTrack";
 import { useLanguage } from "@/components/LanguageProvider";
 
@@ -13,7 +11,17 @@ export default function Music() {
   const { t } = useLanguage();
   const tracks = data.tracks || [];
   const photos = data.photos || [];
-  const [featured, ...moreTracks] = tracks;
+
+  // Every track gets the same full-screen featured treatment — switching is
+  // a dropdown in the title (FeaturedTrack's own picker) rather than a
+  // separate "more recordings" list below, so the page stays a single
+  // viewport with no scroll regardless of how many tracks exist.
+  const [activeIndex, setActiveIndex] = useState(0);
+  const featured = tracks[activeIndex];
+  const translatedTracks = tracks.map((track) => ({
+    title: t(track.title),
+    subtitle: t(track.subtitle),
+  }));
 
   // Fit header + photo wall exactly into the viewport, above the shared
   // footer — no page scroll for the single-track case. Measured live since
@@ -64,27 +72,13 @@ export default function Music() {
               subtitle={t(featured.subtitle)}
               label={t(ui.music.latestRecording)}
               photos={photos}
+              tracks={translatedTracks}
+              activeIndex={activeIndex}
+              onSelectTrack={setActiveIndex}
             />
           </div>
         )}
       </div>
-
-      {/* More recordings — outside the fitted block, so the page can scroll
-          normally if this ever has content */}
-      {moreTracks.length > 0 && (
-        <div className="px-10 pt-12">
-          <p className="text-zinc-600 text-[10px] tracking-[0.4em] uppercase mb-5">
-            {t(ui.music.moreRecordings)}
-          </p>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-5 max-w-3xl">
-            {moreTracks.map((track, i) => (
-              <FadeUp key={i} delay={i * 0.1}>
-                <AudioPlayer src={track.src} title={t(track.title)} subtitle={t(track.subtitle)} />
-              </FadeUp>
-            ))}
-          </div>
-        </div>
-      )}
 
       {/* Albums — hidden entirely until there's something to show */}
       {albums.length > 0 && (
