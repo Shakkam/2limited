@@ -6,3 +6,5 @@ node_modules/
 # stray local logs
 .dev-stdout.log
 .dev-stderr.log
+
+.vercel
