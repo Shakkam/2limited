@@ -116,7 +116,16 @@ export default function PhotoScatter({ photos = [], mouse = { x: 0, y: 0 }, fram
           so the real 3D/depth-sorted layer lives on this separate child. */}
       <div className="absolute inset-0" style={{ perspective: 1600, transformStyle: "preserve-3d" }}>
         {PHOTOS_3D.map((p, i) => {
-          const photo = photos[i % photos.length];
+          // There are exactly PHOTOS_3D.length hand-tuned slots. With that many
+          // photos or fewer, cycle through them in order (unchanged from
+          // before). With MORE photos than slots, sample evenly across the
+          // whole array instead of just `% photos.length` — that would always
+          // pick the first PHOTOS_3D.length entries and silently drop anything
+          // added after them.
+          const photo =
+            photos.length > PHOTOS_3D.length
+              ? photos[Math.floor((i * photos.length) / PHOTOS_3D.length)]
+              : photos[i % photos.length];
           if (!photo) return null;
 
           // Where this photo currently sits relative to straight-ahead, after
