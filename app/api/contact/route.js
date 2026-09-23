@@ -17,7 +17,7 @@ export async function POST(req) {
 
     const resend = new Resend(process.env.RESEND_API_KEY);
     await resend.emails.send({
-      from: "2-LIMITED Contact <onboarding@resend.dev>",
+      from: "2-LIMITED Contact <contact@2limited.fr>",
       to: CONTACT_TO,
       replyTo: email,
       subject: `[2-LIMITED] Message de ${name}`,
