@@ -34,8 +34,13 @@ export async function middleware(request) {
   // visitor is legitimately mid-login. The page itself waits client-side
   // for the hash to be processed before showing the password form.
   const isSetPasswordPage = pathname === "/backoffice/set-password";
+  // Same reasoning as set-password — but this one holds no session at all
+  // yet, on purpose: it shows a button a human must click (see
+  // app/backoffice/confirm) so an email security scanner pre-fetching the
+  // link can't consume the one-time token before the real person opens it.
+  const isConfirmPage = pathname === "/backoffice/confirm";
 
-  if (!user && !isLoginPage && !isSetPasswordPage) {
+  if (!user && !isLoginPage && !isSetPasswordPage && !isConfirmPage) {
     const url = request.nextUrl.clone();
     url.pathname = "/backoffice/login";
     return NextResponse.redirect(url);
