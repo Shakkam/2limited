@@ -78,87 +78,12 @@
     "email": "contact@2limited.fr"
   },
   "albums": [],
-  "tracks": [
-    {
-      "title": "Goodbye Stranger",
-      "subtitle": {
-        "fr": "Reprise de Supertramp",
-        "en": "Supertramp Cover"
-      },
-      "src": "/music/goodbye-stranger.mp3"
-    },
-    {
-      "title": "Street Spirit",
-      "subtitle": {
-        "fr": "Reprise de Radiohead",
-        "en": "Radiohead Cover"
-      },
-      "src": "/music/street-spirit.mp3"
-    }
-  ],
-  "photos": [
-    { "src": "/images/cmso1.jpg", "alt": "2-LIMITED" },
-    { "src": "/images/cmso2.jpg", "alt": "2-LIMITED" },
-    { "src": "/images/cmsocam1.jpg", "alt": "Cam" },
-    { "src": "/images/cmsocam2.jpg", "alt": "Cam" },
-    { "src": "/images/cmsosteph1.jpg", "alt": "Steph" },
-    { "src": "/images/cmsosteph2.jpg", "alt": "Steph" },
-    { "src": "/images/vlcsnap-2024-06-06-14h28m01s384.jpg", "alt": "2-LIMITED" },
-    { "src": "/images/vlcsnap-2024-06-06-14h28m34s237.jpg", "alt": "2-LIMITED" },
-    { "src": "/images/vlcsnap-2024-06-06-16h12m20s922.png", "alt": "2-LIMITED" },
-    { "src": "/images/vlcsnap-2024-06-12-13h49m33s972.jpg", "alt": "2-LIMITED" },
-    { "src": "/images/vlcsnap-2024-06-19-14h03m19s158.jpg", "alt": "2-LIMITED" },
-    { "src": "/images/vlcsnap-2024-06-19-14h04m38s785.jpg", "alt": "2-LIMITED" },
-    { "src": "/images/vlcsnap-2024-06-19-14h06m17s300.jpg", "alt": "2-LIMITED" },
-    { "src": "/images/image.jpeg", "alt": "2-LIMITED" },
-    { "src": "/images/vlcsnap-2024-06-06-14h28m28s427.jpeg", "alt": "2-LIMITED" },
-    { "src": "/images/vlcsnap-2024-06-06-14h33m04s124.jpeg", "alt": "2-LIMITED" },
-    { "src": "/images/vlcsnap-2024-06-19-14h05m23s009.jpeg", "alt": "2-LIMITED" },
-    { "src": "/images/vlcsnap-2024-06-06-14h28m09s853.jpeg", "alt": "2-LIMITED" },
-    { "src": "/images/vlcsnap-2024-06-19-14h01m55s144.jpeg", "alt": "2-LIMITED" },
-    { "src": "/images/vlcsnap-2024-06-06-14h28m34s237.jpeg", "alt": "2-LIMITED" },
-    { "src": "/images/vlcsnap-2024-06-12-13h49m33s972.jpeg", "alt": "2-LIMITED" },
-    { "src": "/images/IMG_3400.JPG", "alt": "2-LIMITED live" },
-    { "src": "/images/IMG_3404.JPG", "alt": "2-LIMITED live" },
-    { "src": "/images/IMG_3398.JPG", "alt": "2-LIMITED live" },
-    { "src": "/images/lacbleu/P1000876.JPG", "alt": "Steph — Lac Bleu" },
-    { "src": "/images/lacbleu/P1000877.JPG", "alt": "Cam — Lac Bleu" },
-    { "src": "/images/lacbleu/P100087sd3.jpg", "alt": "Cam — Lac Bleu" },
-    { "src": "/images/lacbleu/P100087ss2.jpg", "alt": "Cam — Lac Bleu" },
-    { "src": "/images/lacbleu/P1000881.JPG", "alt": "Steph — Lac Bleu" },
-    { "src": "/images/lacbleu/P1000883.JPG", "alt": "Cam — Lac Bleu" },
-    { "src": "/images/lacbleu/P1000898.JPG", "alt": "Cam — Lac Bleu" },
-    { "src": "/images/lacbleu/P1000917.JPG", "alt": "Cam — Lac Bleu" },
-    { "src": "/images/lacbleu/P1000919.JPG", "alt": "Steph — Lac Bleu" },
-    { "src": "/images/lacbleu/P1000935.JPG", "alt": "2-LIMITED live — Lac Bleu" }
-  ],
+  "_note": "Shows, tracks, and photos moved to Supabase (see supabase/migrations/ and app/backoffice) — managed from /backoffice, not this file.",
   "videos": [
     {
       "id": "nBUbUUPoNfQ",
       "title": "2-LIMITED — Street Spirit (Radiohead Acoustic Cover)",
       "year": "2025"
-    }
-  ],
-  "_showsFormat": {
-    "date": "ISO date (YYYY-MM-DD) — upcoming vs past is derived from this, no manual moving needed",
-    "time": "optional, 24h HH:mm",
-    "city": "plain string",
-    "venue": "plain string, or { fr, en } if it needs translating",
-    "note": "optional, e.g. { fr: 'Première partie', en: 'Support act' }",
-    "ticketUrl": "optional — shows a Tickets link when present",
-    "posterSrc": "optional — path to a poster image, shown as a small 'View poster' link"
-  },
-  "shows": [
-    {
-      "date": "2026-09-19",
-      "time": "20:00",
-      "city": "Léognan",
-      "venue": "Lac Bleu",
-      "note": {
-        "fr": "Restauration & boissons sur place — Aux Délices d'Alex",
-        "en": "Food & drinks on site — Aux Délices d'Alex"
-      },
-      "posterSrc": "/images/affiche-concert-19-09-2026.jpg"
     }
   ]
 }

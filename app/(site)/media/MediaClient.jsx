@@ -6,8 +6,8 @@ import FadeUp from "@/components/FadeUp";
 import PhotoGallery from "@/components/PhotoGallery";
 import { useLanguage } from "@/components/LanguageProvider";
 
-export default function MediaClient() {
-  const { videos, photos } = data;
+export default function MediaClient({ photos = [] }) {
+  const { videos } = data;
   const { t } = useLanguage();
 
   return (

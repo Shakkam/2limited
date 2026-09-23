@@ -1,6 +1,5 @@
 "use client";
 
-import data from "@/data/content.json";
 import ui from "@/data/ui.json";
 import FadeUp from "@/components/FadeUp";
 import { useLanguage } from "@/components/LanguageProvider";
@@ -130,9 +129,8 @@ function ShowRow({ show, lang, t, past }) {
   );
 }
 
-export default function ShowsClient() {
+export default function ShowsClient({ shows = [] }) {
   const { lang, t } = useLanguage();
-  const shows = data.shows || [];
 
   // Upcoming vs past is derived from the date, so a played show moves to the
   // archive on its own — no manual editing after each gig.

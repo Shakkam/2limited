@@ -6,11 +6,9 @@ import ui from "@/data/ui.json";
 import FeaturedTrack from "@/components/FeaturedTrack";
 import { useLanguage } from "@/components/LanguageProvider";
 
-export default function Music() {
+export default function Music({ tracks = [], photos = [] }) {
   const { albums } = data;
   const { t } = useLanguage();
-  const tracks = data.tracks || [];
-  const photos = data.photos || [];
 
   // Every track gets the same full-screen featured treatment — switching is
   // a dropdown in the title (FeaturedTrack's own picker) rather than a
