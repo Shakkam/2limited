@@ -10,11 +10,27 @@ const STATUSES = [
   { value: "a_reparer", label: "À réparer" },
   { value: "a_racheter", label: "À racheter" },
 ];
+const STATUS_LABEL = Object.fromEntries(STATUSES.map((s) => [s.value, s.label]));
+
+// A locked field still needs to be visible (so it's clear what value is
+// about to be saved) but shouldn't invite editing — shown as a disabled
+// text input (grayed out) alongside a hidden input carrying the real
+// value, since a disabled control is excluded from form submission.
+function LockedField({ label, field, value }) {
+  const display = field === "status" ? STATUS_LABEL[value] || value : value || "—";
+  return (
+    <div>
+      <label className={labelClass}>{label}</label>
+      <input type="text" value={display} disabled readOnly className={`${inputClass} opacity-40 cursor-not-allowed`} />
+      <input type="hidden" name={field} value={value} />
+    </div>
+  );
+}
 
 // `lockedField` lets a caller fix one of category/owner/status to a given
-// value and hide its picker — used by the inline "+" under a group header,
-// which pre-fills whichever field the list is currently grouped by instead
-// of making the user re-pick something already implied by the group.
+// value — used by the inline "+" under a group header, which pre-fills
+// whichever field the list is currently grouped by instead of making the
+// user re-pick something already implied by the group.
 export default function GearFormFields({ gear, lockedField, compact = false }) {
   const isLocked = (field) => lockedField?.field === field;
 
@@ -26,7 +42,7 @@ export default function GearFormFields({ gear, lockedField, compact = false }) {
       </div>
       <div className="grid grid-cols-2 gap-5">
         {isLocked("category") ? (
-          <input type="hidden" name="category" value={lockedField.value} />
+          <LockedField label="CATÉGORIE" field="category" value={lockedField.value} />
         ) : (
           <div>
             <label className={labelClass}>CATÉGORIE</label>
@@ -41,7 +57,7 @@ export default function GearFormFields({ gear, lockedField, compact = false }) {
           </div>
         )}
         {isLocked("owner") ? (
-          <input type="hidden" name="owner" value={lockedField.value} />
+          <LockedField label="PROPRIÉTAIRE" field="owner" value={lockedField.value} />
         ) : (
           <div>
             <label className={labelClass}>PROPRIÉTAIRE</label>
@@ -58,7 +74,7 @@ export default function GearFormFields({ gear, lockedField, compact = false }) {
       </div>
       <div className="grid grid-cols-2 gap-5">
         {isLocked("status") ? (
-          <input type="hidden" name="status" value={lockedField.value} />
+          <LockedField label="ÉTAT" field="status" value={lockedField.value} />
         ) : (
           <div>
             <label className={labelClass}>ÉTAT</label>

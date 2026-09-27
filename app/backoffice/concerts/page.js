@@ -2,6 +2,7 @@ import Link from "next/link";
 import { createClient } from "@/lib/supabase/server";
 import { createShow, deleteShow } from "./actions";
 import ShowFormFields from "./ShowFormFields";
+import ConfirmSubmitButton from "../ConfirmSubmitButton";
 
 export const metadata = { title: "Concerts — Backoffice" };
 
@@ -43,12 +44,12 @@ export default async function ConcertsPage() {
               </Link>
               <form action={deleteShow}>
                 <input type="hidden" name="id" value={show.id} />
-                <button
-                  type="submit"
+                <ConfirmSubmitButton
+                  confirmMessage={`Supprimer le concert du ${new Date(show.date).toLocaleDateString("fr-FR")} à ${show.city} ?`}
                   className="text-zinc-600 hover:text-red-500 text-[10px] font-bold tracking-widest uppercase transition-colors"
                 >
                   Supprimer
-                </button>
+                </ConfirmSubmitButton>
               </form>
             </div>
           </div>

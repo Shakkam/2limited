@@ -1,5 +1,6 @@
 import { createClient } from "@/lib/supabase/server";
 import { uploadPhotos, updatePhotoAlt, deletePhoto } from "./actions";
+import ConfirmSubmitButton from "../ConfirmSubmitButton";
 
 export const metadata = { title: "Photos — Backoffice" };
 
@@ -55,12 +56,12 @@ export default async function PhotosPage() {
               </form>
               <form action={deletePhoto}>
                 <input type="hidden" name="id" value={photo.id} />
-                <button
-                  type="submit"
+                <ConfirmSubmitButton
+                  confirmMessage="Supprimer cette photo ?"
                   className="text-zinc-600 hover:text-red-500 text-[10px] font-bold tracking-widest uppercase transition-colors"
                 >
                   Supprimer
-                </button>
+                </ConfirmSubmitButton>
               </form>
             </div>
           </div>

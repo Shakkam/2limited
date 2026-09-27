@@ -1,9 +1,10 @@
 import Link from "next/link";
 import { createClient } from "@/lib/supabase/server";
-import { createGear, deleteGear } from "./actions";
-import GearFormFields from "./GearFormFields";
+import { deleteGear } from "./actions";
+import AddGearForm from "./AddGearForm";
 import GroupBySelect from "./GroupBySelect";
 import InlineAddGear from "./InlineAddGear";
+import ConfirmSubmitButton from "../ConfirmSubmitButton";
 
 export const metadata = { title: "Matériel — Backoffice" };
 
@@ -82,12 +83,12 @@ function GearTable({ items, groupBy, hideField }) {
               </Link>
               <form action={deleteGear} className="inline">
                 <input type="hidden" name="id" value={g.id} />
-                <button
-                  type="submit"
+                <ConfirmSubmitButton
+                  confirmMessage={`Supprimer "${g.name}" ?`}
                   className="text-zinc-600 hover:text-red-500 text-[10px] font-bold tracking-widest uppercase transition-colors"
                 >
                   Supprimer
-                </button>
+                </ConfirmSubmitButton>
               </form>
             </td>
           </tr>
@@ -136,7 +137,7 @@ export default async function MaterielPage({ searchParams }) {
               <div className="border-t border-zinc-900 overflow-x-auto">
                 <GearTable items={group.items} groupBy={groupBy} hideField={groupBy} />
               </div>
-              <InlineAddGear field={groupBy} value={group.key} groupBy={groupBy} />
+              <InlineAddGear field={groupBy} value={group.key} />
             </div>
           ))}
         </div>
@@ -145,15 +146,9 @@ export default async function MaterielPage({ searchParams }) {
       {!groupBy && (
         <>
           <p className="text-zinc-600 text-[10px] tracking-[0.4em] uppercase mb-6">Ajouter du matériel</p>
-          <form action={createGear} className="flex flex-col gap-5 max-w-lg">
-            <GearFormFields />
-            <button
-              type="submit"
-              className="self-start mt-2 border border-white text-white text-[10px] font-bold tracking-widest px-8 py-3 hover:bg-white hover:text-black transition-colors"
-            >
-              AJOUTER
-            </button>
-          </form>
+          <div className="max-w-lg">
+            <AddGearForm />
+          </div>
         </>
       )}
     </div>

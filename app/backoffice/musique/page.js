@@ -2,6 +2,7 @@ import Link from "next/link";
 import { createClient } from "@/lib/supabase/server";
 import { createTrack, deleteTrack, moveTrack } from "./actions";
 import TrackFormFields from "./TrackFormFields";
+import ConfirmSubmitButton from "../ConfirmSubmitButton";
 
 export const metadata = { title: "Musique — Backoffice" };
 
@@ -70,12 +71,12 @@ export default async function MusiquePage() {
               </Link>
               <form action={deleteTrack}>
                 <input type="hidden" name="id" value={track.id} />
-                <button
-                  type="submit"
+                <ConfirmSubmitButton
+                  confirmMessage={`Supprimer le morceau "${track.title}" ?`}
                   className="text-zinc-600 hover:text-red-500 text-[10px] font-bold tracking-widest uppercase transition-colors"
                 >
                   Supprimer
-                </button>
+                </ConfirmSubmitButton>
               </form>
             </div>
           </div>
