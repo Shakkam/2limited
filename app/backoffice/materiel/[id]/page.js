@@ -5,8 +5,9 @@ import GearFormFields from "../GearFormFields";
 
 export const metadata = { title: "Modifier un matériel — Backoffice" };
 
-export default async function EditGearPage({ params }) {
+export default async function EditGearPage({ params, searchParams }) {
   const { id } = await params;
+  const { groupBy } = await searchParams;
   const supabase = await createClient();
   const { data: gear } = await supabase.from("gear").select("*").eq("id", id).single();
 
@@ -21,6 +22,9 @@ export default async function EditGearPage({ params }) {
         Modifier le matériel
       </h1>
       <form action={updateWithId} className="flex flex-col gap-5">
+        {/* Preserves the list's current "group by" so saving returns to the
+            same grouped view instead of resetting it. */}
+        {groupBy && <input type="hidden" name="_groupBy" value={groupBy} />}
         <GearFormFields gear={gear} />
         <button
           type="submit"
