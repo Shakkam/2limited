@@ -45,3 +45,91 @@ body {
 .ken-burns {
   animation: kenBurns 12s ease-in-out infinite alternate;
 }
+
+@keyframes concertParticleDrift {
+  0% {
+    opacity: 0.12;
+    transform: translate3d(0, 22px, 0) scale(0.6);
+  }
+  18% {
+    opacity: 1;
+  }
+  82% {
+    opacity: 0.75;
+  }
+  100% {
+    opacity: 0;
+    transform: translate3d(var(--drift-x), -150px, 0) scale(1.5);
+  }
+}
+
+.concert-particle {
+  animation: concertParticleDrift 6s ease-in-out infinite;
+}
+
+.concert-particle--lime {
+  background: #c4ff00;
+  box-shadow: 0 0 7px 2px rgb(196 255 0 / 75%), 0 0 20px 5px rgb(196 255 0 / 35%);
+}
+
+.concert-particle--violet {
+  background: #a855f7;
+  box-shadow: 0 0 8px 2px rgb(168 85 247 / 80%), 0 0 22px 6px rgb(124 58 237 / 38%);
+}
+
+.concert-particle--white {
+  background: #fff;
+  box-shadow: 0 0 7px 2px rgb(255 255 255 / 70%), 0 0 18px 5px rgb(255 255 255 / 28%);
+}
+
+.concert-beam {
+  z-index: 0;
+  transform-origin: top center;
+  clip-path: polygon(44% 0, 56% 0, 100% 100%, 0 100%);
+  filter: blur(14px);
+  animation: concertBeamSweep 8s ease-in-out infinite alternate;
+}
+
+.concert-beam--lime {
+  background: linear-gradient(to bottom, rgb(196 255 0 / 42%), rgb(196 255 0 / 12%) 55%, transparent);
+}
+
+.concert-beam--violet {
+  background: linear-gradient(to bottom, rgb(168 85 247 / 42%), rgb(124 58 237 / 12%) 55%, transparent);
+  animation-delay: -4s;
+}
+
+.concert-glow {
+  z-index: 0;
+  border-radius: 9999px;
+  filter: blur(70px);
+  opacity: 0.4;
+  animation: concertGlowPulse 5s ease-in-out infinite alternate;
+}
+
+.concert-glow--lime {
+  background: rgb(196 255 0 / 30%);
+}
+
+.concert-glow--violet {
+  background: rgb(124 58 237 / 38%);
+  animation-delay: -2.5s;
+}
+
+@keyframes concertBeamSweep {
+  from { transform: rotate(-9deg) scaleY(0.86); }
+  to { transform: rotate(9deg) scaleY(1.08); }
+}
+
+@keyframes concertGlowPulse {
+  from { opacity: 0.22; transform: scale(0.82); }
+  to { opacity: 0.55; transform: scale(1.12); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .concert-particle,
+  .concert-beam,
+  .concert-glow {
+    animation: none;
+  }
+}
