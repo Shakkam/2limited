@@ -235,95 +235,99 @@ export default function ShowsClient({ shows = [] }) {
         </FadeUp>
       </div>
 
-      {/* Upcoming */}
-      <div className={`px-6 md:px-10 ${past.length > 0 ? "py-7" : "py-12"}`}>
-        {!nextShow ? (
-          <FadeUp delay={0.1} className="mx-auto max-w-5xl border-l border-zinc-700 py-1 pl-4">
-            <p className="text-sm tracking-wide text-zinc-400">{t(ui.shows.none)}</p>
-          </FadeUp>
-        ) : (
-          <div className="mx-auto max-w-5xl">
-            <FadeUp>
-              <NextShowSpotlight show={nextShow} lang={lang} t={t} />
-            </FadeUp>
+      {/* Stage lights span both the next show and the archive */}
+      <div className="relative isolate overflow-hidden">
+        <div aria-hidden="true" className="pointer-events-none absolute inset-0 overflow-hidden">
+          <span className="concert-beam concert-beam--lime absolute -top-8 left-[8%] h-[80%] w-40 md:left-[18%] md:w-64" />
+          <span className="concert-beam concert-beam--violet absolute -top-8 right-[8%] h-[78%] w-40 md:right-[18%] md:w-64" />
+          <span className="concert-glow concert-glow--lime absolute -left-20 top-[28%] h-56 w-56 md:h-80 md:w-80" />
+          <span className="concert-glow concert-glow--violet absolute -right-20 top-[38%] h-56 w-56 md:h-80 md:w-80" />
+          {[
+            ["4%", "12%", "-18px", "5.2s", "0s", "3px"],
+            ["9%", "70%", "16px", "6.4s", "1.1s", "2px"],
+            ["15%", "34%", "-24px", "5.8s", "2.2s", "4px"],
+            ["21%", "88%", "20px", "7s", "0.6s", "2px"],
+            ["27%", "20%", "-14px", "5.5s", "2.8s", "3px"],
+            ["33%", "56%", "24px", "6.7s", "1.7s", "2px"],
+            ["39%", "8%", "-20px", "5.9s", "3.4s", "4px"],
+            ["45%", "78%", "18px", "6.2s", "0.9s", "2px"],
+            ["51%", "42%", "-22px", "7.1s", "2.5s", "3px"],
+            ["57%", "94%", "16px", "5.4s", "1.3s", "2px"],
+            ["63%", "26%", "-18px", "6.6s", "3.1s", "4px"],
+            ["69%", "64%", "22px", "5.7s", "0.4s", "2px"],
+            ["75%", "16%", "-16px", "6.9s", "2s", "3px"],
+            ["81%", "84%", "20px", "5.3s", "3.7s", "2px"],
+            ["87%", "48%", "-24px", "6.1s", "1.5s", "4px"],
+            ["93%", "30%", "18px", "7.2s", "2.9s", "2px"],
+            ["98%", "72%", "-16px", "5.6s", "0.8s", "3px"],
+          ].map(([left, top, drift, duration, delay, size], i) => (
+            <span
+              key={i}
+              className={`concert-particle concert-particle--${i % 3 === 0 ? "lime" : i % 3 === 1 ? "violet" : "white"} absolute rounded-full`}
+              style={{ left, top, width: size, height: size, "--drift-x": drift, animationDuration: duration, animationDelay: delay }}
+            />
+          ))}
+        </div>
 
-            {restUpcoming.length > 0 && (
-              <div className="mt-14">
-                <FadeUp>
-                  <p className="text-zinc-600 text-[10px] tracking-[0.4em] uppercase mb-6">
-                    {t(ui.shows.alsoUpcoming)}
-                  </p>
-                </FadeUp>
-                <div className="border-t border-zinc-900">
-                  {restUpcoming.map((show, i) => (
-                    <FadeUp key={`${show.date}-${i}`} delay={i * 0.06}>
-                      <ShowRow show={show} lang={lang} t={t} past={false} />
-                    </FadeUp>
-                  ))}
+        {/* Upcoming */}
+        <div className={`relative z-10 px-6 md:px-10 ${past.length > 0 ? "py-7" : "py-12"}`}>
+          {!nextShow ? (
+            <FadeUp delay={0.1} className="mx-auto max-w-5xl border-l border-zinc-700 py-1 pl-4">
+              <p className="text-sm tracking-wide text-zinc-400">{t(ui.shows.none)}</p>
+            </FadeUp>
+          ) : (
+            <div className="mx-auto max-w-5xl">
+              <FadeUp>
+                <NextShowSpotlight show={nextShow} lang={lang} t={t} />
+              </FadeUp>
+
+              {restUpcoming.length > 0 && (
+                <div className="mt-14">
+                  <FadeUp>
+                    <p className="text-zinc-600 text-[10px] tracking-[0.4em] uppercase mb-6">
+                      {t(ui.shows.alsoUpcoming)}
+                    </p>
+                  </FadeUp>
+                  <div className="border-t border-zinc-900">
+                    {restUpcoming.map((show, i) => (
+                      <FadeUp key={`${show.date}-${i}`} delay={i * 0.06}>
+                        <ShowRow show={show} lang={lang} t={t} past={false} />
+                      </FadeUp>
+                    ))}
+                  </div>
                 </div>
+              )}
+            </div>
+          )}
+        </div>
+
+        {/* Past — only when there's history to show */}
+        {past.length > 0 && (
+          <section className="relative border-t border-zinc-900 px-6 pb-16 pt-10 md:px-10 md:pt-12">
+            <div className="relative z-10 mx-auto max-w-5xl">
+              <FadeUp>
+                <div className="mb-8 flex items-end justify-between gap-4 border-b border-zinc-800 pb-4">
+                  <div>
+                    <h2 className="text-3xl font-black uppercase leading-none tracking-[0.06em] text-white md:text-5xl">
+                      {t(ui.shows.past)}
+                    </h2>
+                  </div>
+                  <span className="pb-1 text-xs font-black tracking-[0.2em] text-violet-400">
+                    {String(past.length).padStart(2, "0")}
+                  </span>
+                </div>
+              </FadeUp>
+              <div className="grid grid-cols-2 gap-x-5 gap-y-8 md:grid-cols-3 lg:grid-cols-4">
+                {past.map((show, i) => (
+                  <FadeUp key={`${show.date}-${i}`} delay={i * 0.06}>
+                    <PastShowCard show={show} lang={lang} t={t} />
+                  </FadeUp>
+                ))}
               </div>
-            )}
-          </div>
+            </div>
+          </section>
         )}
       </div>
-
-      {/* Past — only when there's history to show */}
-      {past.length > 0 && (
-        <section className="relative isolate overflow-hidden border-t border-zinc-900 px-6 pb-16 pt-10 md:px-10 md:pt-12">
-          <div aria-hidden="true" className="pointer-events-none absolute inset-0 overflow-hidden">
-            <span className="concert-beam concert-beam--lime absolute -top-8 left-[8%] h-[80%] w-40 md:left-[18%] md:w-64" />
-            <span className="concert-beam concert-beam--violet absolute -top-8 right-[8%] h-[78%] w-40 md:right-[18%] md:w-64" />
-            <span className="concert-glow concert-glow--lime absolute -left-20 top-[28%] h-56 w-56 md:h-80 md:w-80" />
-            <span className="concert-glow concert-glow--violet absolute -right-20 top-[38%] h-56 w-56 md:h-80 md:w-80" />
-            {[
-              ["4%", "70%", "-18px", "5.2s", "0s", "3px"],
-              ["9%", "88%", "16px", "6.4s", "1.1s", "2px"],
-              ["15%", "61%", "-24px", "5.8s", "2.2s", "4px"],
-              ["21%", "82%", "20px", "7s", "0.6s", "2px"],
-              ["27%", "72%", "-14px", "5.5s", "2.8s", "3px"],
-              ["33%", "92%", "24px", "6.7s", "1.7s", "2px"],
-              ["39%", "65%", "-20px", "5.9s", "3.4s", "4px"],
-              ["45%", "84%", "18px", "6.2s", "0.9s", "2px"],
-              ["51%", "72%", "-22px", "7.1s", "2.5s", "3px"],
-              ["57%", "94%", "16px", "5.4s", "1.3s", "2px"],
-              ["63%", "67%", "-18px", "6.6s", "3.1s", "4px"],
-              ["69%", "85%", "22px", "5.7s", "0.4s", "2px"],
-              ["75%", "74%", "-16px", "6.9s", "2s", "3px"],
-              ["81%", "91%", "20px", "5.3s", "3.7s", "2px"],
-              ["87%", "63%", "-24px", "6.1s", "1.5s", "4px"],
-              ["93%", "82%", "18px", "7.2s", "2.9s", "2px"],
-              ["98%", "70%", "-16px", "5.6s", "0.8s", "3px"],
-            ].map(([left, top, drift, duration, delay, size], i) => (
-              <span
-                key={i}
-                className={`concert-particle concert-particle--${i % 3 === 0 ? "lime" : i % 3 === 1 ? "violet" : "white"} absolute rounded-full`}
-                style={{ left, top, width: size, height: size, "--drift-x": drift, animationDuration: duration, animationDelay: delay }}
-              />
-            ))}
-          </div>
-          <div className="relative z-10 mx-auto max-w-5xl">
-            <FadeUp>
-              <div className="mb-8 flex items-end justify-between gap-4 border-b border-zinc-800 pb-4">
-                <div>
-                  <h2 className="text-3xl font-black uppercase leading-none tracking-[0.06em] text-white md:text-5xl">
-                    {t(ui.shows.past)}
-                  </h2>
-                </div>
-                <span className="pb-1 text-xs font-black tracking-[0.2em] text-violet-400">
-                  {String(past.length).padStart(2, "0")}
-                </span>
-              </div>
-            </FadeUp>
-            <div className="grid grid-cols-2 gap-x-5 gap-y-8 md:grid-cols-3 lg:grid-cols-4">
-              {past.map((show, i) => (
-                <FadeUp key={`${show.date}-${i}`} delay={i * 0.06}>
-                  <PastShowCard show={show} lang={lang} t={t} />
-                </FadeUp>
-              ))}
-            </div>
-          </div>
-        </section>
-      )}
     </div>
   );
 }
