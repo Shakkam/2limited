@@ -16,10 +16,9 @@ function formatDate(iso, lang) {
   }).format(date);
 }
 
-// The single next show gets its own oversized spotlight card — the rest of
-// the list stays in the compact row style below. Mirrors the big-outlined-
-// numeral motif already used for members (MemberCard.jsx) so the two pages
-// share a visual language.
+// The single next show gets its own spotlight card with its poster up
+// front — the rest of the list stays in the compact row style below. Without
+// a poster, the big outlined numeral (MemberCard.jsx motif) fills the space.
 function NextShowSpotlight({ show, lang, t }) {
   const date = new Date(show.date);
   const locale = LOCALES[lang] ?? LOCALES.en;
@@ -27,68 +26,79 @@ function NextShowSpotlight({ show, lang, t }) {
   const day = new Intl.DateTimeFormat(locale, { day: "numeric" }).format(date);
   const month = new Intl.DateTimeFormat(locale, { month: "long" }).format(date);
   const year = new Intl.DateTimeFormat(locale, { year: "numeric" }).format(date);
+  const location = [t(show.city), show.venue && t(show.venue)].filter(Boolean).join(" — ");
 
   return (
-    <div className="relative border border-zinc-800 bg-zinc-950 px-8 py-10 md:px-14 md:py-16 overflow-hidden">
-      <span
-        aria-hidden="true"
-        className="pointer-events-none select-none absolute -right-4 -top-10 md:-right-6 md:-top-16 text-[9rem] md:text-[15rem] font-black leading-none text-transparent"
-        style={{ WebkitTextStroke: "1px rgba(255,255,255,0.05)" }}
-      >
-        {day}
-      </span>
+    <div className="relative border border-zinc-800 bg-zinc-950 p-6 md:p-10 overflow-hidden">
+      {!show.posterSrc && (
+        <span
+          aria-hidden="true"
+          className="pointer-events-none select-none absolute -right-4 -bottom-10 md:-right-6 md:-bottom-16 text-[9rem] md:text-[15rem] font-black leading-none text-transparent"
+          style={{ WebkitTextStroke: "1px rgba(255,255,255,0.05)" }}
+        >
+          {day}
+        </span>
+      )}
 
-      <div className="relative z-10 flex flex-col md:flex-row md:items-end md:justify-between gap-8 md:gap-12">
-        <div>
-          <p className="text-zinc-600 text-[10px] font-black tracking-[0.4em] uppercase mb-4">
-            {t(ui.shows.next)}
-          </p>
-          <p className="text-white text-lg md:text-xl font-black tracking-widest uppercase">{weekday}</p>
-          <p className="text-white text-5xl md:text-7xl font-black tracking-tight leading-none mt-2">
-            {day}
-            <span className="text-zinc-500 text-xl md:text-2xl font-bold tracking-widest uppercase align-middle ml-4">
-              {month} {year}
+      <div className="relative z-10 flex flex-col gap-8 md:flex-row md:gap-12">
+        {show.posterSrc && (
+          <a
+            href={show.posterSrc}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="group relative block w-full max-w-[16rem] shrink-0 self-center overflow-hidden border border-zinc-800 md:self-start focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-white"
+            aria-label={`${t(ui.shows.poster)} — ${location}`}
+          >
+            <img
+              src={show.posterSrc}
+              alt={`${location} — ${formatDate(show.date, lang)}`}
+              className="aspect-[3/4] w-full object-cover transition-transform duration-700 ease-out group-hover:scale-[1.04] motion-reduce:transition-none"
+            />
+            <span className="absolute inset-x-0 bottom-0 flex items-center justify-between bg-gradient-to-t from-black/90 via-black/55 to-transparent px-4 pb-3 pt-10 text-[10px] font-bold uppercase tracking-[0.2em] text-white opacity-0 transition duration-300 group-hover:opacity-100 group-focus-visible:opacity-100 motion-reduce:transition-none">
+              {t(ui.shows.poster)}
+              <span aria-hidden="true">↗</span>
             </span>
-          </p>
-          {show.time && (
-            <p className="text-zinc-500 text-sm tracking-[0.3em] uppercase mt-4">{show.time}</p>
-          )}
-        </div>
+          </a>
+        )}
 
-        <div className="md:text-right shrink-0">
-          <p className="text-white text-xl md:text-2xl font-black tracking-widest">{t(show.city)}</p>
-          {show.venue && (
-            <p className="text-zinc-400 text-sm tracking-[0.25em] uppercase mt-1">{t(show.venue)}</p>
-          )}
-          {show.note && (
-            <p className="text-zinc-600 text-[10px] tracking-[0.2em] uppercase mt-4 max-w-[16rem] md:ml-auto leading-relaxed">
-              {t(show.note)}
+        <div className="flex flex-1 flex-col justify-center gap-8">
+          <div>
+            <p className="text-zinc-600 text-[10px] font-black tracking-[0.4em] uppercase mb-4">
+              {t(ui.shows.next)}
             </p>
-          )}
-          {(show.ticketUrl || show.posterSrc) && (
-            <div className="flex flex-wrap items-center gap-4 mt-6 md:justify-end">
-              {show.ticketUrl && (
-                <a
-                  href={show.ticketUrl}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="inline-block border border-zinc-700 text-zinc-300 text-[10px] font-bold tracking-widest px-6 py-3 hover:border-white hover:text-white transition-colors"
-                >
-                  {t(ui.shows.tickets)}
-                </a>
-              )}
-              {show.posterSrc && (
-                <a
-                  href={show.posterSrc}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="text-zinc-500 text-[10px] font-bold tracking-widest underline underline-offset-4 decoration-zinc-700 hover:text-white hover:decoration-white transition-colors"
-                >
-                  {t(ui.shows.poster)}
-                </a>
-              )}
-            </div>
-          )}
+            <p className="text-white text-lg md:text-xl font-black tracking-widest uppercase">{weekday}</p>
+            <p className="text-white text-5xl md:text-7xl font-black tracking-tight leading-none mt-2">
+              {day}
+              <span className="text-zinc-500 text-xl md:text-2xl font-bold tracking-widest uppercase align-middle ml-4">
+                {month} {year}
+              </span>
+            </p>
+            {show.time && (
+              <p className="text-zinc-500 text-sm tracking-[0.3em] uppercase mt-4">{show.time}</p>
+            )}
+          </div>
+
+          <div className="border-t border-zinc-800 pt-6">
+            <p className="text-white text-xl md:text-2xl font-black tracking-widest">{t(show.city)}</p>
+            {show.venue && (
+              <p className="text-zinc-400 text-sm tracking-[0.25em] uppercase mt-1">{t(show.venue)}</p>
+            )}
+            {show.note && (
+              <p className="mt-4 border-l-2 border-lime-300 pl-3 text-sm leading-relaxed text-zinc-300">
+                {t(show.note)}
+              </p>
+            )}
+            {show.ticketUrl && (
+              <a
+                href={show.ticketUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-block mt-6 border border-zinc-700 text-zinc-300 text-[10px] font-bold tracking-widest px-6 py-3 hover:border-white hover:text-white transition-colors"
+              >
+                {t(ui.shows.tickets)}
+              </a>
+            )}
+          </div>
         </div>
       </div>
     </div>
@@ -171,26 +181,26 @@ function PastShowCard({ show, lang, t }) {
           </span>
         </a>
       ) : (
-        <div className="flex aspect-[3/4] flex-col justify-between border border-zinc-800 bg-zinc-950 p-5 md:p-6">
+        <div className="flex aspect-[3/4] flex-col justify-between border border-zinc-800 bg-zinc-950 p-4">
           <p className="text-[10px] font-bold uppercase tracking-[0.35em] text-zinc-600">2-LIMITED</p>
           <div>
-            <p className="text-6xl font-black leading-none text-white md:text-7xl">{day}</p>
-            <p className="mt-2 text-sm font-bold uppercase tracking-[0.25em] text-zinc-400">{month} {year}</p>
+            <p className="text-5xl font-black leading-none text-white">{day}</p>
+            <p className="mt-2 text-xs font-bold uppercase tracking-[0.25em] text-zinc-400">{month} {year}</p>
           </div>
         </div>
       )}
 
-      <div className="flex min-h-[190px] flex-1 flex-col border-b border-zinc-800 py-5">
+      <div className="flex flex-1 flex-col border-b border-zinc-800 py-4">
         <p className="text-[10px] font-bold uppercase tracking-[0.2em] text-zinc-400">
           {formatDate(show.date, lang)}
           {show.time && <span className="font-normal tracking-normal text-zinc-500"> — {show.time}</span>}
         </p>
-        <p className="mt-3 text-xl font-black uppercase leading-tight tracking-[0.08em] text-white md:text-2xl">
+        <p className="mt-2 text-base font-black uppercase leading-tight tracking-[0.08em] text-white">
           {t(show.city)}
         </p>
-        {show.venue && <p className="mt-1 text-sm text-zinc-400">{t(show.venue)}</p>}
+        {show.venue && <p className="mt-1 text-xs text-zinc-400">{t(show.venue)}</p>}
         {show.note && (
-          <p className="mt-auto border-l-2 border-lime-300 pl-3 pt-5 text-sm leading-relaxed text-zinc-300">
+          <p className="mt-3 border-l-2 border-lime-300 pl-3 text-xs leading-relaxed text-zinc-300">
             {t(show.note)}
           </p>
         )}
@@ -228,11 +238,11 @@ export default function ShowsClient({ shows = [] }) {
       {/* Upcoming */}
       <div className={`px-6 md:px-10 ${past.length > 0 ? "py-7" : "py-12"}`}>
         {!nextShow ? (
-          <FadeUp delay={0.1} className="mx-auto max-w-6xl border-l border-zinc-700 py-1 pl-4">
+          <FadeUp delay={0.1} className="mx-auto max-w-5xl border-l border-zinc-700 py-1 pl-4">
             <p className="text-sm tracking-wide text-zinc-400">{t(ui.shows.none)}</p>
           </FadeUp>
         ) : (
-          <div className="max-w-4xl">
+          <div className="mx-auto max-w-5xl">
             <FadeUp>
               <NextShowSpotlight show={nextShow} lang={lang} t={t} />
             </FadeUp>
@@ -304,7 +314,7 @@ export default function ShowsClient({ shows = [] }) {
                 </span>
               </div>
             </FadeUp>
-            <div className="grid grid-cols-1 gap-x-8 gap-y-10 sm:grid-cols-2">
+            <div className="grid grid-cols-2 gap-x-5 gap-y-8 md:grid-cols-3 lg:grid-cols-4">
               {past.map((show, i) => (
                 <FadeUp key={`${show.date}-${i}`} delay={i * 0.06}>
                   <PastShowCard show={show} lang={lang} t={t} />
